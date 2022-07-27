@@ -716,7 +716,7 @@ def print_specials_html(stats, lang):
     for special in Special.special_ids.values():
         if special in stats.my_specials:
             str_buffer.write(f"<div class='special-{specialsize:1d}-{specialnum:1d}'>")
-            str_buffer.write(f"<img class='special-img' src='images/special/{Special.to_img(special)}' alt='{Special.to_str(special, lang)}'> ")
+            str_buffer.write(f"<img class='special-img' src='/images/special/{Special.to_img(special)}' alt='{Special.to_str(special, lang)}'> ")
             str_buffer.write(f"<span class='special-name'>{Special.to_str(special, lang)}</span> : ")
             str_buffer.write(f"<span class='special-count' title='special occurence'>{stats.my_specials[special]:3.0f}</span>")
 #            str_buffer.write(f" <span class='special-percent'>({stats.my_specials[special]/all_scores:5.2%})</span>")
@@ -779,7 +779,7 @@ def print_weapons_html(stats, lang):
     weaponnum = 1
     for (weapon, weaponoccurence) in sorted_weapons:
         str_buffer.write(f"<div class='weapon-{weaponsize:1d}-{weaponnum:1d}'>")
-        str_buffer.write(f"<img class='weapon-img' src='images/weapon/{Weapon.to_img(weapon)}' alt='{Weapon.to_str(weapon, lang)}'> ")
+        str_buffer.write(f"<img class='weapon-img' src='/images/weapon/{Weapon.to_img(weapon)}' alt='{Weapon.to_str(weapon, lang)}'> ")
         str_buffer.write(f"<span class='weapon-name'>{Weapon.to_str(weapon, lang)}</span> : ")
         str_buffer.write(f"<span class='weapon-count' title='weapon occurence'>{weaponoccurence:3.0f}</span>")
         str_buffer.write(f" <span class='weapon-occurence-percent' title='percentage of all occurences'>({weaponoccurence/all_waves:5.2%})</span>")
@@ -915,146 +915,254 @@ def print_waves_html(stats, lang):
     str_buffer.write(f"<td class='maxgoldeneggs'><span title='stddev: {pstdev(stats.goldentotal):.2f}'>{mean(stats.goldentotal):.2f}</span></td>")
     str_buffer.write("</tr>\n</tbody></table>")
     # Night tables
-    str_buffer.write("<table id='nightwavemax'>\n<thead><tr>")
-    str_buffer.write(f"<th>{Wave.other_str('titlemax',lang)}</th><th scope='col'>{Wave.to_str('tide',lang)}</th><th scope='col'>%</th><th scope='col'>Max Eggs</th><th scope='col'>Average</th></tr></thead><tbody>")
-    if (stats.ev_moship > 0):
-        rpan = 1
-        if (stats.ht_moship > 0):
-            rpan += 1
-        if (stats.nt_moship > 0):
-            rpan += 1
-        if (stats.lt_moship > 0):
-            rpan += 1
-        str_buffer.write(f"<tr><th class='mothership' rowspan='{rpan}' title='stolen eggs:{sum(stats.goldenraw) - sum(stats.goldentotal):d}, average: {(sum(stats.goldenraw) - sum(stats.goldentotal))/stats.ev_moship:.2f}'>{Wave.to_str('the-mothership', lang)}</th>")
-        str_buffer.write(f"<td></td>")
-        moship_pct = stats.ev_moship / stats.wavetotal
-        if (moship_pct * 100) > (Wave.ms_avg + Wave.night_wave_percent_max):
-            str_buffer.write(f"<td class='moshippct'><span class='statshigh' title='{Wave.ms_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
-        elif (moship_pct * 100) < (Wave.ms_avg - Wave.night_wave_percent_max):
-            str_buffer.write(f"<td class='moshippct'><span class='statslow' title='{Wave.ms_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
-        else:
-            str_buffer.write(f"<td class='moshippct'><span class='statsnormal' title='{Wave.ms_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
-        moship_g = stats.ht_moship_g + stats.nt_moship_g + stats.lt_moship_g
-        str_buffer.write(f"<td class='moshipmax'><span title='min: {min(moship_g)}'>{max(moship_g)}</span></td>")
-        str_buffer.write(f"<td class='moshipavg'><span title='stddev: {pstdev(moship_g)}'>{mean(moship_g)}</span></td></tr>")
-        if (stats.ht_moship > 0):
-            str_buffer.write(f"<tr><td>{Wave.to_str('high', lang)}</td>")
-            moship_pct = stats.ht_moship / stats.wavetotal
-            if (moship_pct * 100) > (Wave.ms_ht_avg + Wave.night_wave_percent_max):
-                str_buffer.write(f"<td class='moshippct'><span class='statshigh' title='{Wave.ms_ht_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
-            elif (moship_pct * 100) < (Wave.ms_ht_avg - Wave.night_wave_percent_max):
-                str_buffer.write(f"<td class='moshippct'><span class='statslow' title='{Wave.ms_ht_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
+    if (stats.wav_night > 0):
+        str_buffer.write("<table id='nightwavemax'>\n<thead><tr>")
+        str_buffer.write(f"<th>{Wave.other_str('titlemax',lang)}</th><th scope='col'>{Wave.to_str('tide',lang)}</th><th scope='col'>%</th><th scope='col'>Max Eggs</th><th scope='col'>Average</th></tr></thead><tbody>")
+        # moship
+        if (stats.ev_moship > 0):
+            rpan = 1
+            if (stats.ht_moship > 0):
+                rpan += 1
+            if (stats.nt_moship > 0):
+                rpan += 1
+            if (stats.lt_moship > 0):
+                rpan += 1
+            str_buffer.write(f"<tr><th class='mothership' rowspan='{rpan}' title='stolen eggs:{sum(stats.goldenraw) - sum(stats.goldentotal):d}, average: {(sum(stats.goldenraw) - sum(stats.goldentotal))/stats.ev_moship:.2f}'>{Wave.to_str('the-mothership', lang)}</th>")
+            str_buffer.write(f"<td></td>")
+            moship_pct = stats.ev_moship / stats.wavetotal
+            if (moship_pct * 100) > (Wave.ms_avg + Wave.night_wave_percent_max):
+                str_buffer.write(f"<td class='moshippct'><span class='statshigh' title='{Wave.ms_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
+            elif (moship_pct * 100) < (Wave.ms_avg - Wave.night_wave_percent_max):
+                str_buffer.write(f"<td class='moshippct'><span class='statslow' title='{Wave.ms_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
             else:
-                str_buffer.write(f"<td class='moshippct'><span class='statsnormal' title='{Wave.ms_ht_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
-            str_buffer.write(f"<td class='moshipmax'><span title='min: {min(stats.ht_moship_g)}'>{max(stats.ht_moship_g)}</span></td>")
-            str_buffer.write(f"<td class='moshipavg'><span title='stddev: {pstdev(stats.ht_moship_g)}'>{mean(stats.ht_moship_g)}</span></td></tr>")
-        if (stats.nt_moship > 0):
-            str_buffer.write(f"<tr><td>{Wave.to_str('normal', lang)}</td>")
-            moship_pct = stats.nt_moship / stats.wavetotal
-            if (moship_pct * 100) > (Wave.ms_nt_avg + Wave.night_wave_percent_max):
-                str_buffer.write(f"<td class='moshippct'><span class='statshigh' title='{Wave.ms_nt_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
-            elif (moship_pct * 100) < (Wave.ms_nt_avg - Wave.night_wave_percent_max):
-                str_buffer.write(f"<td class='moshippct'><span class='statslow' title='{Wave.ms_nt_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='moshippct'><span class='statsnormal' title='{Wave.ms_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
+            moship_g = stats.ht_moship_g + stats.nt_moship_g + stats.lt_moship_g
+            str_buffer.write(f"<td class='moshipmax'><span title='min: {min(moship_g)}'>{max(moship_g)}</span></td>")
+            str_buffer.write(f"<td class='moshipavg'><span title='stddev: {pstdev(moship_g):.2f}'>{mean(moship_g):.2f}</span></td></tr>")
+            if (stats.ht_moship > 0):
+                str_buffer.write(f"<tr><td>{Wave.to_str('high', lang)}</td>")
+                moship_pct = stats.ht_moship / stats.wavetotal
+                if (moship_pct * 100) > (Wave.ms_ht_avg + Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='moshippct'><span class='statshigh' title='{Wave.ms_ht_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
+                elif (moship_pct * 100) < (Wave.ms_ht_avg - Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='moshippct'><span class='statslow' title='{Wave.ms_ht_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
+                else:
+                    str_buffer.write(f"<td class='moshippct'><span class='statsnormal' title='{Wave.ms_ht_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='moshipmax'><span title='min: {min(stats.ht_moship_g)}'>{max(stats.ht_moship_g)}</span></td>")
+                str_buffer.write(f"<td class='moshipavg'><span title='stddev: {pstdev(stats.ht_moship_g):.2f}'>{mean(stats.ht_moship_g):.2f}</span></td></tr>")
+            if (stats.nt_moship > 0):
+                str_buffer.write(f"<tr><td>{Wave.to_str('normal', lang)}</td>")
+                moship_pct = stats.nt_moship / stats.wavetotal
+                if (moship_pct * 100) > (Wave.ms_nt_avg + Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='moshippct'><span class='statshigh' title='{Wave.ms_nt_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
+                elif (moship_pct * 100) < (Wave.ms_nt_avg - Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='moshippct'><span class='statslow' title='{Wave.ms_nt_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
+                else:
+                    str_buffer.write(f"<td class='moshippct'><span class='statsnormal' title='{Wave.ms_nt_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='moshipmax'><span title='min: {min(stats.nt_moship_g)}'>{max(stats.nt_moship_g)}</span></td>")
+                str_buffer.write(f"<td class='moshipavg'><span title='stddev: {pstdev(stats.nt_moship_g):.2f}'>{mean(stats.nt_moship_g):.2f}</span></td></tr>")
+            if (stats.lt_moship > 0):
+                str_buffer.write(f"<tr><td>{Wave.to_str('low', lang)}</td>")
+                moship_pct = stats.lt_moship / stats.wavetotal
+                if (moship_pct * 100) > (Wave.ms_lt_avg + Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='moshippct'><span class='statshigh' title='{Wave.ms_lt_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
+                elif (moship_pct * 100) < (Wave.ms_lt_avg - Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='moshippct'><span class='statslow' title='{Wave.ms_lt_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
+                else:
+                    str_buffer.write(f"<td class='moshippct'><span class='statsnormal' title='{Wave.ms_lt_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='moshipmax'><span title='min: {min(stats.lt_moship_g)}'>{max(stats.lt_moship_g)}</span></td>")
+                str_buffer.write(f"<td class='moshipavg'><span title='stddev: {pstdev(stats.lt_moship_g):.2f}'>{mean(stats.lt_moship_g):.2f}</span></td></tr>")
+        # rush
+        if (stats.ev_rush > 0):
+            rpan = 1
+            if (stats.ht_rush > 0):
+                rpan += 1
+            if (stats.nt_rush> 0):
+                rpan += 1
+            str_buffer.write(f"<tr><th class='rush' rowspan='{rpan}'>{Wave.to_str('rush', lang)}</th>")
+            str_buffer.write(f"<td></td>")
+            ev_pct = stats.ev_rush / stats.wavetotal
+            if (ev_pct * 100) > (Wave.rush_avg + Wave.night_wave_percent_max):
+                str_buffer.write(f"<td class='rushpct'><span class='statshigh' title='{Wave.rush_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+            elif (ev_pct * 100) < (Wave.rush_avg - Wave.night_wave_percent_max):
+                str_buffer.write(f"<td class='rushpct'><span class='statslow' title='{Wave.rush_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
             else:
-                str_buffer.write(f"<td class='moshippct'><span class='statsnormal' title='{Wave.ms_nt_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
-            str_buffer.write(f"<td class='moshipmax'><span title='min: {min(stats.nt_moship_g)}'>{max(stats.nt_moship_g)}</span></td>")
-            str_buffer.write(f"<td class='moshipavg'><span title='stddev: {pstdev(stats.nt_moship_g)}'>{mean(stats.nt_moship_g)}</span></td></tr>")
-        if (stats.lt_moship > 0):
-            str_buffer.write(f"<tr><td>{Wave.to_str('low', lang)}</td>")
-            moship_pct = stats.lt_moship / stats.wavetotal
-            if (moship_pct * 100) > (Wave.ms_lt_avg + Wave.night_wave_percent_max):
-                str_buffer.write(f"<td class='moshippct'><span class='statshigh' title='{Wave.ms_lt_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
-            elif (moship_pct * 100) < (Wave.ms_lt_avg - Wave.night_wave_percent_max):
-                str_buffer.write(f"<td class='moshippct'><span class='statslow' title='{Wave.ms_lt_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='rushpct'><span class='statsnormal' title='{Wave.rush_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+            rush_g = stats.ht_rush_g + stats.nt_rush_g
+            str_buffer.write(f"<td class='rushmax'><span title='min: {min(rush_g)}'>{max(rush_g)}</span></td>")
+            str_buffer.write(f"<td class='rushavg'><span title='stddev: {pstdev(rush_g):.2f}'>{mean(rush_g):.2f}</span></td></tr>")
+            if (stats.ht_rush > 0):
+                str_buffer.write(f"<tr><td>{Wave.to_str('high', lang)}</td>")
+                ev_pct = stats.ht_rush / stats.wavetotal
+                if (ev_pct * 100) > (Wave.ms_ht_avg + Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='rushpct'><span class='statshigh' title='{Wave.rush_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                elif (ev_pct * 100) < (Wave.ms_ht_avg - Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='rushpct'><span class='statslow' title='{Wave.rush_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                else:
+                    str_buffer.write(f"<td class='rushpct'><span class='statsnormal' title='{Wave.rush_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='rushmax'><span title='min: {min(stats.ht_rush_g)}'>{max(stats.ht_rush_g)}</span></td>")
+                str_buffer.write(f"<td class='rushavg'><span title='stddev: {pstdev(stats.ht_rush_g):.2f}'>{mean(stats.ht_rush_g):.2f}</span></td></tr>")
+            if (stats.nt_rush > 0):
+                str_buffer.write(f"<tr><td>{Wave.to_str('normal', lang)}</td>")
+                ev_pct = stats.nt_rush / stats.wavetotal
+                if (ev_pct * 100) > (Wave.rush_nt_avg + Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='rushpct'><span class='statshigh' title='{Wave.rush_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                elif (ev_pct * 100) < (Wave.ms_nt_avg - Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='rushpct'><span class='statslow' title='{Wave.rush_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                else:
+                    str_buffer.write(f"<td class='rushpct'><span class='statsnormal' title='{Wave.rush_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='rushmax'><span title='min: {min(stats.nt_rush_g)}'>{max(stats.nt_rush_g)}</span></td>")
+                str_buffer.write(f"<td class='rushavg'><span title='stddev: {pstdev(stats.nt_rush_g):.2f}'>{mean(stats.nt_rush_g):.2f}</span></td></tr>")
+        # seek
+        if (stats.ev_seek > 0):
+            rpan = 1
+            if (stats.ht_seek > 0):
+                rpan += 1
+            if (stats.nt_seek> 0):
+                rpan += 1
+            str_buffer.write(f"<tr><th class='seek' rowspan='{rpan}'>{Wave.to_str('goldie-seeking', lang)}</th>")
+            str_buffer.write(f"<td></td>")
+            ev_pct = stats.ev_seek / stats.wavetotal
+            if (ev_pct * 100) > (Wave.seek_avg + Wave.night_wave_percent_max):
+                str_buffer.write(f"<td class='seekpct'><span class='statshigh' title='{Wave.seek_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+            elif (ev_pct * 100) < (Wave.seek_avg - Wave.night_wave_percent_max):
+                str_buffer.write(f"<td class='seekpct'><span class='statslow' title='{Wave.seek_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
             else:
-                str_buffer.write(f"<td class='moshippct'><span class='statsnormal' title='{Wave.ms_lt_avg/100:3.2%}'>{moship_pct:3.2%}</span></td>")
-            str_buffer.write(f"<td class='moshipmax'><span title='min: {min(stats.lt_moship_g)}'>{max(stats.lt_moship_g)}</span></td>")
-            str_buffer.write(f"<td class='moshipavg'><span title='stddev: {pstdev(stats.lt_moship_g)}'>{mean(stats.lt_moship_g)}</span></td></tr>")
-    # rush
-    if (stats.ev_rush > 0):
-        rpan = 1
-        if (stats.ht_rush > 0):
-            rpan += 1
-        if (stats.nt_rush> 0):
-            rpan += 1
-        str_buffer.write(f"<tr><th class='rush' rowspan='{rpan}'>{Wave.to_str('rush', lang)}</th>")
-        str_buffer.write(f"<td></td>")
-        ev_pct = stats.ev_rush / stats.wavetotal
-        if (ev_pct * 100) > (Wave.rush_avg + Wave.night_wave_percent_max):
-            str_buffer.write(f"<td class='rushpct'><span class='statshigh' title='{Wave.rush_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
-        elif (ev_pct * 100) < (Wave.rush_avg - Wave.night_wave_percent_max):
-            str_buffer.write(f"<td class='rushpct'><span class='statslow' title='{Wave.rush_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
-        else:
-            str_buffer.write(f"<td class='rushpct'><span class='statsnormal' title='{Wave.rush_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
-        rush_g = stats.ht_rush_g + stats.nt_rush_g
-        str_buffer.write(f"<td class='rushmax'><span title='min: {min(rush_g)}'>{max(rush_g)}</span></td>")
-        str_buffer.write(f"<td class='rushavg'><span title='stddev: {pstdev(rush_g)}'>{mean(rush_g)}</span></td></tr>")
-        if (stats.ht_rush > 0):
-            str_buffer.write(f"<tr><td>{Wave.to_str('high', lang)}</td>")
-            ev_pct = stats.ht_rush / stats.wavetotal
-            if (ev_pct * 100) > (Wave.ms_ht_avg + Wave.night_wave_percent_max):
-                str_buffer.write(f"<td class='rushpct'><span class='statshigh' title='{Wave.rush_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
-            elif (ev_pct * 100) < (Wave.ms_ht_avg - Wave.night_wave_percent_max):
-                str_buffer.write(f"<td class='rushpct'><span class='statslow' title='{Wave.rush_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='seekpct'><span class='statsnormal' title='{Wave.seek_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+            seek_g = stats.ht_seek_g + stats.nt_seek_g
+            str_buffer.write(f"<td class='seekmax'><span title='min: {min(seek_g)}'>{max(seek_g)}</span></td>")
+            str_buffer.write(f"<td class='seekavg'><span title='stddev: {pstdev(seek_g):.2f}'>{mean(seek_g):.2f}</span></td></tr>")
+            if (stats.ht_seek > 0):
+                str_buffer.write(f"<tr><td>{Wave.to_str('high', lang)}</td>")
+                ev_pct = stats.ht_seek / stats.wavetotal
+                if (ev_pct * 100) > (Wave.ms_ht_avg + Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='seekpct'><span class='statshigh' title='{Wave.seek_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                elif (ev_pct * 100) < (Wave.ms_ht_avg - Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='seekpct'><span class='statslow' title='{Wave.seek_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                else:
+                    str_buffer.write(f"<td class='seekpct'><span class='statsnormal' title='{Wave.seek_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='seekmax'><span title='min: {min(stats.ht_seek_g)}'>{max(stats.ht_seek_g)}</span></td>")
+                str_buffer.write(f"<td class='seekavg'><span title='stddev: {pstdev(stats.ht_seek_g):.2f}'>{mean(stats.ht_seek_g):.2f}</span></td></tr>")
+            if (stats.nt_seek > 0):
+                str_buffer.write(f"<tr><td>{Wave.to_str('normal', lang)}</td>")
+                ev_pct = stats.nt_seek / stats.wavetotal
+                if (ev_pct * 100) > (Wave.seek_nt_avg + Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='seekpct'><span class='statshigh' title='{Wave.seek_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                elif (ev_pct * 100) < (Wave.ms_nt_avg - Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='seekpct'><span class='statslow' title='{Wave.seek_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                else:
+                    str_buffer.write(f"<td class='seekpct'><span class='statsnormal' title='{Wave.seek_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='seekmax'><span title='min: {min(stats.nt_seek_g)}'>{max(stats.nt_seek_g)}</span></td>")
+                str_buffer.write(f"<td class='seekavg'><span title='stddev: {pstdev(stats.nt_seek_g):.2f}'>{mean(stats.nt_seek_g):.2f}</span></td></tr>")
+        # grillers
+        if (stats.ev_grills > 0):
+            rpan = 1
+            if (stats.ht_grills > 0):
+                rpan += 1
+            if (stats.nt_grills > 0):
+                rpan += 1
+            str_buffer.write(f"<tr><th class='grillers' rowspan='{rpan}'>{Wave.to_str('griller', lang)}</th>")
+            str_buffer.write(f"<td></td>")
+            ev_pct = stats.ev_grills / stats.wavetotal
+            if (ev_pct * 100) > (Wave.grill_avg + Wave.night_wave_percent_max):
+                str_buffer.write(f"<td class='grillpct'><span class='statshigh' title='{Wave.grill_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+            elif (ev_pct * 100) < (Wave.grill_avg - Wave.night_wave_percent_max):
+                str_buffer.write(f"<td class='grillpct'><span class='statslow' title='{Wave.grill_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
             else:
-                str_buffer.write(f"<td class='rushpct'><span class='statsnormal' title='{Wave.rush_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
-            str_buffer.write(f"<td class='rushmax'><span title='min: {min(stats.ht_rush_g)}'>{max(stats.ht_rush_g)}</span></td>")
-            str_buffer.write(f"<td class='rushavg'><span title='stddev: {pstdev(stats.ht_rush_g)}'>{mean(stats.ht_rush_g)}</span></td></tr>")
-        if (stats.nt_rush > 0):
-            str_buffer.write(f"<tr><td>{Wave.to_str('normal', lang)}</td>")
-            ev_pct = stats.nt_rush / stats.wavetotal
-            if (ev_pct * 100) > (Wave.rush_nt_avg + Wave.night_wave_percent_max):
-                str_buffer.write(f"<td class='rushpct'><span class='statshigh' title='{Wave.rush_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
-            elif (ev_pct * 100) < (Wave.ms_nt_avg - Wave.night_wave_percent_max):
-                str_buffer.write(f"<td class='rushpct'><span class='statslow' title='{Wave.rush_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='grillpct'><span class='statsnormal' title='{Wave.grill_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+            grill_g = stats.ht_grills_g + stats.nt_grills_g
+            str_buffer.write(f"<td class='grillmax'><span title='min: {min(grill_g)}'>{max(grill_g)}</span></td>")
+            str_buffer.write(f"<td class='grillavg'><span title='stddev: {pstdev(grill_g):.2f}'>{mean(grill_g):.2f}</span></td></tr>")
+            if (stats.ht_grills > 0):
+                str_buffer.write(f"<tr><td>{Wave.to_str('high', lang)}</td>")
+                ev_pct = stats.ht_grills / stats.wavetotal
+                if (ev_pct * 100) > (Wave.grill_ht_avg + Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='grillpct'><span class='statshigh' title='{Wave.grill_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                elif (ev_pct * 100) < (Wave.grill_ht_avg - Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='grillpct'><span class='statslow' title='{Wave.grill_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                else:
+                    str_buffer.write(f"<td class='grillpct'><span class='statsnormal' title='{Wave.grill_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='grillmax'><span title='min: {min(stats.ht_grills_g)}'>{max(stats.ht_grills_g)}</span></td>")
+                str_buffer.write(f"<td class='grillavg'><span title='stddev: {pstdev(stats.ht_grills_g):.2f}'>{mean(stats.ht_grills_g):.2f}</span></td></tr>")
+            if (stats.nt_grills > 0):
+                str_buffer.write(f"<tr><td>{Wave.to_str('normal', lang)}</td>")
+                ev_pct = stats.nt_grills / stats.wavetotal
+                if (ev_pct * 100) > (Wave.grill_nt_avg + Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='grillpct'><span class='statshigh' title='{Wave.grill_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                elif (ev_pct * 100) < (Wave.grill_nt_avg - Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='grillpct'><span class='statslow' title='{Wave.grill_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                else:
+                    str_buffer.write(f"<td class='grillpct'><span class='statsnormal' title='{Wave.grill_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='grillmax'><span title='min: {min(stats.nt_grills_g)}'>{max(stats.nt_grills_g)}</span></td>")
+                str_buffer.write(f"<td class='grillavg'><span title='stddev: {pstdev(stats.nt_grills_g):.2f}'>{mean(stats.nt_grills_g):.2f}</span></td></tr>")
+        # TODO fog
+        if (stats.ev_fog > 0):
+            rpan = 1
+            if (stats.ht_fog > 0):
+                rpan += 1
+            if (stats.nt_fog > 0):
+                rpan += 1
+            if (stats.lt_fog > 0):
+                rpan += 1
+            str_buffer.write(f"<tr><th class='mothership' rowspan='{rpan}'>{Wave.to_str('fog', lang)}</th>")
+            str_buffer.write(f"<td></td>")
+            ev_pct = stats.ev_fog / stats.wavetotal
+            if (ev_pct * 100) > (Wave.fog_avg + Wave.night_wave_percent_max):
+                str_buffer.write(f"<td class='fogpct'><span class='statshigh' title='{Wave.fog_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+            elif (ev_pct * 100) < (Wave.fog_avg - Wave.night_wave_percent_max):
+                str_buffer.write(f"<td class='fogpct'><span class='statslow' title='{Wave.fog_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
             else:
-                str_buffer.write(f"<td class='rushpct'><span class='statsnormal' title='{Wave.rush_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
-            str_buffer.write(f"<td class='rushmax'><span title='min: {min(stats.nt_rush_g)}'>{max(stats.nt_rush_g)}</span></td>")
-            str_buffer.write(f"<td class='rushavg'><span title='stddev: {pstdev(stats.nt_rush_g)}'>{mean(stats.nt_rush_g)}</span></td></tr>")
-     # rseek
-    if (stats.ev_seek > 0):
-        rpan = 1
-        if (stats.ht_seek > 0):
-            rpan += 1
-        if (stats.nt_seek> 0):
-            rpan += 1
-        str_buffer.write(f"<tr><th class='seek' rowspan='{rpan}'>{Wave.to_str('goldie-seeking', lang)}</th>")
-        str_buffer.write(f"<td></td>")
-        ev_pct = stats.ev_seek / stats.wavetotal
-        if (ev_pct * 100) > (Wave.seek_avg + Wave.night_wave_percent_max):
-            str_buffer.write(f"<td class='seekpct'><span class='statshigh' title='{Wave.seek_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
-        elif (ev_pct * 100) < (Wave.seek_avg - Wave.night_wave_percent_max):
-            str_buffer.write(f"<td class='seekpct'><span class='statslow' title='{Wave.seek_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
-        else:
-            str_buffer.write(f"<td class='seekpct'><span class='statsnormal' title='{Wave.seek_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
-        seek_g = stats.ht_seek_g + stats.nt_seek_g
-        str_buffer.write(f"<td class='seekmax'><span title='min: {min(seek_g)}'>{max(seek_g)}</span></td>")
-        str_buffer.write(f"<td class='seekavg'><span title='stddev: {pstdev(seek_g)}'>{mean(seek_g)}</span></td></tr>")
-        if (stats.ht_seek > 0):
-            str_buffer.write(f"<tr><td>{Wave.to_str('high', lang)}</td>")
-            ev_pct = stats.ht_seek / stats.wavetotal
-            if (ev_pct * 100) > (Wave.ms_ht_avg + Wave.night_wave_percent_max):
-                str_buffer.write(f"<td class='seekpct'><span class='statshigh' title='{Wave.seek_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
-            elif (ev_pct * 100) < (Wave.ms_ht_avg - Wave.night_wave_percent_max):
-                str_buffer.write(f"<td class='seekpct'><span class='statslow' title='{Wave.seek_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='fogpct'><span class='statsnormal' title='{Wave.fog_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+            fog_g = stats.ht_fog_g + stats.nt_fog_g + stats.lt_fog_g
+            str_buffer.write(f"<td class='fogmax'><span title='min: {min(fog_g)}'>{max(fog_g)}</span></td>")
+            str_buffer.write(f"<td class='fogavg'><span title='stddev: {pstdev(fog_g):.2f}'>{mean(fog_g):.2f}</span></td></tr>")
+            if (stats.ht_fog > 0):
+                str_buffer.write(f"<tr><td>{Wave.to_str('high', lang)}</td>")
+                ev_pct = stats.ht_fog / stats.wavetotal
+                if (ev_pct * 100) > (Wave.fog_ht_avg + Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='fogpct'><span class='statshigh' title='{Wave.fog_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                elif (ev_pct * 100) < (Wave.fog_ht_avg - Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='fogpct'><span class='statslow' title='{Wave.fog_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                else:
+                    str_buffer.write(f"<td class='fogpct'><span class='statsnormal' title='{Wave.fog_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='fogmax'><span title='min: {min(stats.ht_fog_g)}'>{max(stats.ht_fog_g)}</span></td>")
+                str_buffer.write(f"<td class='fogavg'><span title='stddev: {pstdev(stats.ht_fog_g):.2f}'>{mean(stats.ht_fog_g):.2f}</span></td></tr>")
+            if (stats.nt_fog > 0):
+                str_buffer.write(f"<tr><td>{Wave.to_str('normal', lang)}</td>")
+                ev_pct = stats.nt_fog / stats.wavetotal
+                if (ev_pct * 100) > (Wave.ms_nt_avg + Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='fogpct'><span class='statshigh' title='{Wave.fog_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                elif (ev_pct * 100) < (Wave.ms_nt_avg - Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='fogpct'><span class='statslow' title='{Wave.fog_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                else:
+                    str_buffer.write(f"<td class='fogpct'><span class='statsnormal' title='{Wave.fog_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='fogmax'><span title='min: {min(stats.nt_fog_g)}'>{max(stats.nt_fog_g)}</span></td>")
+                str_buffer.write(f"<td class='fogavg'><span title='stddev: {pstdev(stats.nt_fog_g):.2f}'>{mean(stats.nt_fog_g):.2f}</span></td></tr>")
+            if (stats.lt_fog > 0):
+                str_buffer.write(f"<tr><td>{Wave.to_str('low', lang)}</td>")
+                ev_pct = stats.lt_fog / stats.wavetotal
+                if (ev_pct * 100) > (Wave.ms_lt_avg + Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='fogpct'><span class='statshigh' title='{Wave.fog_lt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                elif (ev_pct * 100) < (Wave.ms_lt_avg - Wave.night_wave_percent_max):
+                    str_buffer.write(f"<td class='fogpct'><span class='statslow' title='{Wave.fog_lt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                else:
+                    str_buffer.write(f"<td class='fogpct'><span class='statsnormal' title='{Wave.fog_lt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+                str_buffer.write(f"<td class='fogmax'><span title='min: {min(stats.lt_fog_g)}'>{max(stats.lt_fog_g)}</span></td>")
+                str_buffer.write(f"<td class='fogavg'><span title='stddev: {pstdev(stats.lt_fog_g):.2f}'>{mean(stats.lt_fog_g):.2f}</span></td></tr>")
+        # canons
+        if (stats.ev_cohock > 0):
+            str_buffer.write(f"<tr><th class='cohock'>{Wave.to_str('cohock-charge', lang)}</th>")
+            str_buffer.write(f"<td>{Wave.to_str('low', lang)}</td>")
+            ev_pct = stats.ev_cohock / stats.wavetotal
+            if (ev_pct * 100) > (Wave.cohock_avg + Wave.night_wave_percent_max):
+                str_buffer.write(f"<td class='cohockpct'><span class='statshigh' title='{Wave.cohock_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+            elif (ev_pct * 100) < (Wave.cohock_avg - Wave.night_wave_percent_max):
+                str_buffer.write(f"<td class='cohockpct'><span class='statslow' title='{Wave.cohock_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
             else:
-                str_buffer.write(f"<td class='seekpct'><span class='statsnormal' title='{Wave.seek_ht_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
-            str_buffer.write(f"<td class='seekmax'><span title='min: {min(stats.ht_seek_g)}'>{max(stats.ht_seek_g)}</span></td>")
-            str_buffer.write(f"<td class='seekavg'><span title='stddev: {pstdev(stats.ht_seek_g)}'>{mean(stats.ht_seek_g)}</span></td></tr>")
-        if (stats.nt_seek > 0):
-            str_buffer.write(f"<tr><td>{Wave.to_str('normal', lang)}</td>")
-            ev_pct = stats.nt_seek / stats.wavetotal
-            if (ev_pct * 100) > (Wave.seek_nt_avg + Wave.night_wave_percent_max):
-                str_buffer.write(f"<td class='seekpct'><span class='statshigh' title='{Wave.seek_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
-            elif (ev_pct * 100) < (Wave.ms_nt_avg - Wave.night_wave_percent_max):
-                str_buffer.write(f"<td class='seekpct'><span class='statslow' title='{Wave.seek_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
-            else:
-                str_buffer.write(f"<td class='seekpct'><span class='statsnormal' title='{Wave.seek_nt_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
-            str_buffer.write(f"<td class='seekmax'><span title='min: {min(stats.nt_seek_g)}'>{max(stats.nt_seek_g)}</span></td>")
-            str_buffer.write(f"<td class='seekavg'><span title='stddev: {pstdev(stats.nt_seek_g)}'>{mean(stats.nt_seek_g)}</span></td></tr>")
+                str_buffer.write(f"<td class='cohockpct'><span class='statsnormal' title='{Wave.cohock_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
+            str_buffer.write(f"<td class='cohockmax'><span title='min: {min(grill_g)}'>{max(grill_g)}</span></td>")
+            str_buffer.write(f"<td class='cohockavg'><span title='stddev: {pstdev(grill_g):.2f}'>{mean(grill_g):.2f}</span></td></tr>")
         
-        
-#TODOTODO
     str_buffer.write("\n</tbody></table>")
     return str_buffer.getvalue()    
 
