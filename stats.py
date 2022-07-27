@@ -809,8 +809,12 @@ def print_waves_html(stats, lang):
         str_buffer.write(f"<td class='daypct'><span class='statslow' title='{Wave.day_avg/100:6.2%}'>{daypct:6.2%}</span></td>")
     else:
         str_buffer.write(f"<td class='daypct'><span class='statsnormal' title='{Wave.day_avg/100:6.2%}'>{daypct:6.2%}</span></td>")
-    str_buffer.write(f"<td class='daymaxeggs'><span title='min: {min(stats.day_geggs):6.2f}'>{max(stats.day_geggs):6.2f}</span></td>")
-    str_buffer.write(f"<td class='dayavgeggs'><span title='stddev: {pstdev(stats.day_geggs):6.2f}'>{mean(stats.day_geggs):6.2f}</span></td></tr>\n")
+    if (stats.wav_day > 0):
+        str_buffer.write(f"<td class='daymaxeggs'><span title='min: {min(stats.day_geggs):6.2f}'>{max(stats.day_geggs):6.2f}</span></td>")
+        str_buffer.write(f"<td class='dayavgeggs'><span title='stddev: {pstdev(stats.day_geggs):6.2f}'>{mean(stats.day_geggs):6.2f}</span></td></tr>\n")
+    else:
+        str_buffer.write(f"<td class='daymaxeggs'><span title='min: -'>-</span></td>")
+        str_buffer.write(f"<td class='dayavgeggs'><span title='stddev: -'>-</span></td></tr>\n")
     # Nights
     str_buffer.write("<tr class='nightwaves'>")
     str_buffer.write(f"<th scope='row' class='night'>{Wave.to_str('night', lang)}</th>")
@@ -822,8 +826,12 @@ def print_waves_html(stats, lang):
         str_buffer.write(f"<td class='nightpct'><span class='statslow' title='{Wave.night_avg/100:6.2%}'>{nightpct:6.2%}</span></td>")
     else:
         str_buffer.write(f"<td class='nightpct'><span class='statsnormal' title='{Wave.night_avg/100:6.2%}'>{nightpct:6.2%}</span></td>")
-    str_buffer.write(f"<td class='nightmaxeggs'><span title='min: {min(stats.night_geggs):6.2f}'>{max(stats.night_geggs):6.2f}</span></td>")
-    str_buffer.write(f"<td class='nightavgeggs'><span title='stddev: {pstdev(stats.night_geggs):6.2f}'>{mean(stats.night_geggs):6.2f}</span></td></tr>\n")
+    if (stats.wav_night > 0):
+        str_buffer.write(f"<td class='nightmaxeggs'><span title='min: {min(stats.night_geggs):6.2f}'>{max(stats.night_geggs):6.2f}</span></td>")
+        str_buffer.write(f"<td class='nightavgeggs'><span title='stddev: {pstdev(stats.night_geggs):6.2f}'>{mean(stats.night_geggs):6.2f}</span></td></tr>\n")
+    else:
+        str_buffer.write(f"<td class='nightmaxeggs'><span title='min: -'>-</span></td>")
+        str_buffer.write(f"<td class='nightavgeggs'><span title='stddev: -'>-</span></td></tr>\n")
     # High tide
     str_buffer.write("<tr class='hightidewaves'>")
     str_buffer.write(f"<th scope='row' class='hightide'>{Wave.to_str('high', lang)}</th>")
@@ -835,8 +843,12 @@ def print_waves_html(stats, lang):
         str_buffer.write(f"<td class='hightidepct'><span class='statslow' title='{Wave.high_avg/100:6.2%}'>{highpct:6.2%}</span></td>")
     else:
         str_buffer.write(f"<td class='hightidepct'><span class='statsnormal' title='{Wave.high_avg/100:6.2%}'>{highpct:6.2%}</span></td>")
-    str_buffer.write(f"<td class='hightidemaxeggs'><span title='min: {min(stats.ht_geggs):6.2f}'>{max(stats.ht_geggs):6.2f}</span></td>")
-    str_buffer.write(f"<td class='hightideavgeggs'><span title='stddev: {pstdev(stats.ht_geggs):6.2f}'>{mean(stats.ht_geggs):6.2f}</span></td></tr>\n")
+    if (stats.wav_ht > 0):
+        str_buffer.write(f"<td class='hightidemaxeggs'><span title='min: {min(stats.ht_geggs):6.2f}'>{max(stats.ht_geggs):6.2f}</span></td>")
+        str_buffer.write(f"<td class='hightideavgeggs'><span title='stddev: {pstdev(stats.ht_geggs):6.2f}'>{mean(stats.ht_geggs):6.2f}</span></td></tr>\n")
+    else:
+        str_buffer.write(f"<td class='hightidemaxeggs'><span title='min: -'>-</span></td>")
+        str_buffer.write(f"<td class='hightideavgeggs'><span title='stddev: -'>-</span></td></tr>\n")
     # Normal tide
     str_buffer.write("<tr class='normaltidewaves'>")
     str_buffer.write(f"<th scope='row' class='normaltide'>{Wave.to_str('normal', lang)}</th>")
@@ -848,8 +860,12 @@ def print_waves_html(stats, lang):
         str_buffer.write(f"<td class='normaltidepct'><span class='statslow' title='{Wave.normal_avg/100:6.2%}'>{normalpct:6.2%}</span></td>")
     else:
         str_buffer.write(f"<td class='normaltidepct'><span class='statsnormal' title='{Wave.normal_avg/100:6.2%}'>{normalpct:6.2%}</span></td>")
-    str_buffer.write(f"<td class='normaltidemaxeggs'><span title='min: {min(stats.nt_geggs):6.2f}'>{max(stats.nt_geggs):6.2f}</span></td>")
-    str_buffer.write(f"<td class='normalideavgeggs'><span title='stddev: {pstdev(stats.nt_geggs):6.2f}'>{mean(stats.nt_geggs):6.2f}</span></td></tr>\n")
+    if (stats.wav_nt > 0):
+        str_buffer.write(f"<td class='normaltidemaxeggs'><span title='min: {min(stats.nt_geggs):6.2f}'>{max(stats.nt_geggs):6.2f}</span></td>")
+        str_buffer.write(f"<td class='normalideavgeggs'><span title='stddev: {pstdev(stats.nt_geggs):6.2f}'>{mean(stats.nt_geggs):6.2f}</span></td></tr>\n")
+    else:
+        str_buffer.write(f"<td class='normaltidemaxeggs'><span title='min: -'>-</span></td>")
+        str_buffer.write(f"<td class='normalideavgeggs'><span title='stddev: -'>-</span></td></tr>\n")
     # Low tide
     str_buffer.write("<tr class='lowtidewaves'>")
     str_buffer.write(f"<th scope='row' class='lowtide'>{Wave.to_str('low', lang)}</th>")
@@ -861,8 +877,12 @@ def print_waves_html(stats, lang):
         str_buffer.write(f"<td class='lowtidepct'><span class='statslow' title='{Wave.low_avg/100:6.2%}'>{lowpct:6.2%}</span></td>")
     else:
         str_buffer.write(f"<td class='lowtidepct'><span class='statsnormal' title='{Wave.low_avg/100:6.2%}'>{lowpct:6.2%}</span></td>")
-    str_buffer.write(f"<td class='lowtidemaxeggs'><span title='min: {min(stats.lt_geggs):6.2f}'>{max(stats.lt_geggs):6.2f}</span></td>")
-    str_buffer.write(f"<td class='lowtideavgeggs'><span title='stddev: {pstdev(stats.lt_geggs):6.2f}'>{mean(stats.lt_geggs):6.2f}</span></td></tr>\n")
+    if (stats.wav_lt > 0):
+        str_buffer.write(f"<td class='lowtidemaxeggs'><span title='min: {min(stats.lt_geggs):6.2f}'>{max(stats.lt_geggs):6.2f}</span></td>")
+        str_buffer.write(f"<td class='lowtideavgeggs'><span title='stddev: {pstdev(stats.lt_geggs):6.2f}'>{mean(stats.lt_geggs):6.2f}</span></td></tr>\n")
+    else:
+        str_buffer.write(f"<td class='lowtidemaxeggs'><span title='min: -'>-</span></td>")
+        str_buffer.write(f"<td class='lowtideavgeggs'><span title='stddev: -'>-</span></td></tr>\n")
     str_buffer.write("</tbody></table>")
 
     str_buffer.write("<table id='wavemax'>\n<thead><tr>")
