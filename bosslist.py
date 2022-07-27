@@ -1,5 +1,8 @@
 
 class SalmonBossList:
+    boss_idx = [ "sakelien-golden", "sakelien-bomber", "sakelien-cup-twins",
+                "sakelien-shield", "sakelien-snake", "sakelien-tower",
+                "sakediver", "sakedozer", "sakerocket" ]
     boss_names = { "6"  : "sakelien-bomber", "9"  : "sakelien-cup-twins",
                    "12" : "sakelien-shield", "13" : "sakelien-snake",
                    "14" : "sakelien-tower",  "15" : "sakediver",
@@ -22,6 +25,9 @@ class SalmonBossList:
                 "sakerocket"         : "コウモリ" }
     
     boss_str = boss_en
+
+    def get_boss_key(idx: int):
+        return SalmonBossList.boss_idx[idx]
 
     def get_boss_name(key, lang="en"):
         if lang == "en":
