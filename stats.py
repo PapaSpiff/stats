@@ -68,16 +68,16 @@ def load_games(args) -> list['Game']:
             sys.exit(f"{refname} not found in '{dirname}' dir")
 
     g = Game(refname, dirname)
-    mintime = g.start_time
-    maxtime = g.end_time
+    mintime = g.rotation.start_time
+    maxtime = g.rotation.end_time
     mint = time.gmtime(mintime)
     maxt = time.gmtime(maxtime)
-    print(f"Adding Games from {strftime('%Y-%m-%d %H:%M:%S %Z', mint)} to {strftime('%Y-%m-%d %H:%M:%S %Z', maxt)} => {strftime('%Y%m%d%H', mint)} (length = {((maxtime - mintime) / 3600):2.0f}h)")
+    print(f"Adding Games from {strftime('%Y-%m-%d %H:%M:%S %Z', mint)} to {strftime('%Y-%m-%d %H:%M:%S %Z', maxt)} => {g.rotation.rotation_id} (length = {((maxtime - mintime) / 3600):2.0f}h)")
 
     all_games = []
     if args.single:
         all_games.append(g)
-        print(f"Games from {strftime('%Y-%m-%d %H:%M:%S %Z', mint)} to {strftime('%Y-%m-%d %H:%M:%S %Z', maxt)} => {strftime('%Y%m%d%H', mint)} (length = {((maxtime - mintime) / 3600):2.0f}h)")
+        print(f"Games from {strftime('%Y-%m-%d %H:%M:%S %Z', mint)} to {strftime('%Y-%m-%d %H:%M:%S %Z', maxt)} => {g.rotation.rotation_id} (length = {((maxtime - mintime) / 3600):2.0f}h)")
         return all_games
 
     is_gamelist = len(args.numgames) > 1
@@ -107,7 +107,7 @@ def load_games(args) -> list['Game']:
             continue
         print(f"Adding {ng.job_id}")
         all_games.append(ng)
-    print(f"Games from {strftime('%Y-%m-%d %H:%M:%S %Z', mint)} to {strftime('%Y-%m-%d %H:%M:%S %Z', maxt)} => {strftime('%Y%m%d%H', mint)} (length = {((maxtime - mintime) / 3600):2.0f}h)")
+    print(f"Games from {strftime('%Y-%m-%d %H:%M:%S %Z', mint)} to {strftime('%Y-%m-%d %H:%M:%S %Z', maxt)} => {g.rotation.rotation_id} (length = {((maxtime - mintime) / 3600):2.0f}h)")
     return all_games
 
 def update_players(all_games) -> None:

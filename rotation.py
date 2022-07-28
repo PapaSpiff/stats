@@ -1,7 +1,6 @@
-from time import strftime
+from time import strftime, gmtime
 
 class Rotation:
-    # https://splatoonwiki.org/wiki/Salmon_Run_data#Wave_type
     start_time:int = 0
     end_time:int = 0
     rotation_id: str
@@ -83,4 +82,13 @@ class Rotation:
         self.key         = Rotation.img_to_idx[raw_rotation['stage']['image']]
         self.start_time  = raw_rotation['start_time']
         self.end_time    = raw_rotation['end_time']
-        self.rotation_id = strftime('%Y%m%d%H', self.start_time)
+        self.rotation_id = strftime('%Y%m%d%H', gmtime(self.start_time))
+
+    def __eq__(self: 'Rotation', other: 'Rotation'):
+        if isinstance(other, self.__class__):
+            return self.start_time == other.start_time
+        else:
+            return False
+
+    def __ne__(self: 'Rotation', other: 'Rotation'):
+        return not self.__eq__(other)
