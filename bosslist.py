@@ -26,10 +26,10 @@ class SalmonBossList:
     
     boss_str = boss_en
 
-    def get_boss_key(idx: int):
+    def get_boss_key(idx: int) -> str:
         return SalmonBossList.boss_idx[idx]
 
-    def get_boss_name(key, lang="en"):
+    def get_boss_name(key: str, lang:str="en") -> str:
         if lang == "en":
             return SalmonBossList.boss_en[key]
         elif lang == "fr":
@@ -38,7 +38,7 @@ class SalmonBossList:
             return SalmonBossList.boss_ja[key]
         return SalmonBossList.boss_en[key]
 
-    def set_language(self, lang):
+    def set_language(self: 'SalmonBossList', lang:str) -> None:
         if lang == "en":
             self.boss_str = SalmonBossList.boss_en
         elif lang == "fr":
@@ -48,14 +48,14 @@ class SalmonBossList:
         else: #current default to en
             self.boss_str = SalmonBossList.boss_en
 
-    def sum_boss(self):
+    def sum_boss(self: 'SalmonBossList') -> int:
         return sum(self.b_list.values())
 
-    def __str__(self):
+    def __str__(self : 'SalmonBossList') -> str:
         return str(self.b_list)
 
 
-    def __init__(self, gamedict, fname):
+    def __init__(self: 'SalmonBossList', gamedict: dict, fname: str) -> None:
         self.b_list = {}
         for key, name in self.boss_names.items():
             self.b_list[name] = gamedict[key]['count']

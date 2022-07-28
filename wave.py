@@ -96,7 +96,7 @@ class Wave:
         'average'  : "平均",
     }
 
-    def other_str(key, lang):
+    def other_str(key: str, lang: str) -> str:
         if lang == "en":
             return Wave.other_en[key]
         elif lang == "fr":
@@ -106,7 +106,7 @@ class Wave:
         else: #current default to en
             return Wave.other_en[key]
 
-    def to_str(key, lang):
+    def to_str(key: str, lang: str) -> str:
         if lang == "en":
             return Wave.waves_en[key]
         elif lang == "fr":

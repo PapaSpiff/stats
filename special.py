@@ -1,3 +1,6 @@
+from curses.ascii import SP
+
+
 class Special:
     special_ids = {
         2: 'pitcher',
@@ -38,15 +41,15 @@ class Special:
         'ja' : 'スペシャルウェポン'
     }
 
-    def to_img(key):        
+    def to_img(key: str) -> str:        
         return Special.special_img[key]
 
-    def title_str(lang):
+    def title_str(lang: str) -> str:
         if lang in Special.title:
             return Special.title[lang]
         return Special.title['en']
 
-    def set_language(self, lang):
+    def set_language(self: 'Special', lang: str) -> None:
         if lang == "en":
             self.special_str = Special.special_en
         elif lang == "fr":
@@ -56,10 +59,10 @@ class Special:
         else: #current default to en
             self.special_str = Special.special_en
 
-    def __str__(self):
+    def __str__(self: 'Special') -> str:
         return self.special_str[self.key]
 
-    def to_str(key, lang):
+    def to_str(key: str, lang: str) -> str:
         if lang == "en":
             return Special.special_en[key]
         elif lang == "fr":
@@ -69,5 +72,5 @@ class Special:
         else: #current default to en
             return Special.special_en[key]
 
-    def __init__(self, id):
+    def __init__(self: 'Special', id: str) -> None:
         self.key = self.special_ids[int(id)]
