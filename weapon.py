@@ -323,8 +323,12 @@ class Weapon:
         else: #current default to en
             self.weapon_str = Weapon.weapon_en
 
+    def get_img_prefix(self: 'Weapon') -> str:
+        return "/images/weapon/" if self.id > 0 else "/images/coop_weapons/"
+
     def __init__(self: 'Weapon', id: Union[int, str]) -> None:
         self.key = self.weapon_ids[int(id)]
+        self.id = int(id)
 
     def __str__(self: 'Weapon') -> str:
         return self.weapon_str[self.key]

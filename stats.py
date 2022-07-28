@@ -5,7 +5,7 @@ import glob
 from gamesession import GameSession
 from game import Game
 from htmlgen import print_html_head
-from htmlgen import print_specials_html, print_weapons_html, print_waves_html
+from htmlgen import print_specials_html, print_weapons_html, print_waves_html, print_rotation_html
 from os.path import exists
 from statistics import mean as mean
 from statistics import pstdev as pstdev
@@ -107,7 +107,11 @@ def load_games(args) -> list['Game']:
             continue
         print(f"Adding {ng.job_id}")
         all_games.append(ng)
-    print(f"Games from {strftime('%Y-%m-%d %H:%M:%S %Z', mint)} to {strftime('%Y-%m-%d %H:%M:%S %Z', maxt)} => {g.rotation.rotation_id} on {g.rotation.get_stage_name(args.lang)} (length = {((maxtime - mintime) / 3600):2.0f}h)")
+    if (rotonly):
+        print(f"Games from {strftime('%Y-%m-%d %H:%M:%S %Z', mint)} to {strftime('%Y-%m-%d %H:%M:%S %Z', maxt)} => {g.rotation.rotation_id} on {g.rotation.get_stage_name(args.lang)} (length = {((maxtime - mintime) / 3600):2.0f}h)")
+    else:
+        print("Games from multiple rotation added")
+
     return all_games
 
 def update_players(all_games) -> None:
@@ -160,8 +164,11 @@ if __name__ == "__main__":
     else:
         session = GameSession()
         session.get_stats(all_games)
+        rotonly = args.rotation or not (args.all or args.single)
         with open(args.out, 'w', encoding="utf-8") as f:
             f.write(print_html_head(session, args.lang))
+            if (rotonly):
+                f.write(print_rotation_html(all_games[0], args.lang))
             f.write(print_specials_html(session, args.lang))
             f.write(print_weapons_html(session, args.lang))
             f.write(print_waves_html(session, args.lang))

@@ -6,6 +6,7 @@ class Rotation:
     end_time:int = 0
     rotation_id: str
     key: str
+    weapon_list: list[Weapon]
 
     img_to_idx = {
         '/images/coop_stage/6d68f5baa75f3a94e5e9bfb89b82e7377e3ecd2c.png' : 'outpost',
@@ -87,11 +88,10 @@ class Rotation:
         self.start_time  = raw_rotation['start_time']
         self.end_time    = raw_rotation['end_time']
         self.rotation_id = strftime('%Y%m%d%H', gmtime(self.start_time))
-        weapon_list: list['Weapon'] = []
+        weapon_list: list[Weapon] = []
         for weapon in raw_rotation['weapons']:
             weapon_list.append(Weapon(weapon['id']))
-
-
+        self.weapon_list = weapon_list
 
     def __eq__(self: 'Rotation', other: 'Rotation'):
         if isinstance(other, self.__class__):

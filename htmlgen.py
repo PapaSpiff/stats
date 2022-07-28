@@ -2,12 +2,29 @@ from wave import Wave
 from special import Special
 from weapon import Weapon
 from bosslist import SalmonBossList
+from game import Game
 from gamesession import GameSession
 from statistics import mean as mean
 from statistics import pstdev as pstdev
 from statistics import quantiles as quantiles
 from io import StringIO
+from time import strftime, gmtime
 
+
+def print_rotation_html(game: Game, lang: str) -> str:
+    rotation = game.rotation
+    str_buffer = StringIO()
+    str_buffer.write("<div class='rotation' id='rotation_info'>\n")
+    str_buffer.write("<div class='schedule-time'>")
+    str_buffer.write(f"<span class='start-time' value='{rotation.start_time}'>{strftime('%Y-%m-%d %H:%M:%S %Z', gmtime(rotation.start_time))}</span> ⇒ ")
+    str_buffer.write(f"<span class='start-time' value='{rotation.end_time}'>{strftime('%Y-%m-%d %H:%M:%S %Z', gmtime(rotation.end_time))}</span></div>")
+    str_buffer.write(f"<div class='rotation-name'>{rotation.get_stage_name(lang)}</div>")
+    str_buffer.write(f"<div class='weapon-set'>")
+    for weapon in rotation.weapon_list:
+       str_buffer.write(f"<figure class='weapon-list'><img src='{weapon.get_img_prefix()}{Weapon.to_img(weapon.key)}'>") 
+       str_buffer.write(f"<figcaption>{Weapon.to_str(weapon.key, lang)}</figcaption></figure>")
+    str_buffer.write("</div></div>\n")
+    return str_buffer.getvalue()
 
 def print_specials_html(session: GameSession, lang: str) -> str:
     str_buffer = StringIO()
