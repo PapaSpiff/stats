@@ -2,13 +2,14 @@ from wave import Wave
 from special import Special
 from weapon import Weapon
 from bosslist import SalmonBossList
+from game import Game
 from statistics import mean as mean
 from statistics import pstdev as pstdev
 from statistics import quantiles as quantiles
 
 
 class GameSession:
-    def get_stats(self, game_list):
+    def get_stats(self: 'GameSession', game_list: list[Game]):
         self.scores      = []
         self.kills       = []
         self.tkills      = []
