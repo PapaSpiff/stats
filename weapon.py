@@ -2,6 +2,8 @@ from typing import Union
 
 class Weapon:
     weapon_ids = { # from https://github.com/frozenpandaman/splatnet2statink/blob/master/dbs.py
+        -2:   'coop_gold',              # Unknown Gold
+        -1:   'coop_normal',            # Unknown normal
         0:    'bold',                   # Sploosh-o-matic
         10:   'wakaba',                 # Splattershot Jr.
         20:   'sharp',                  # Splash-o-matic
@@ -59,6 +61,8 @@ class Weapon:
     }
 
     weapon_en = { 
+        'coop_gold': 'Random',
+        'coop_normal': 'Random',
         'bold': 'Sploosh-o-matic',
         'wakaba': 'Splattershot Jr.',
         'sharp': 'Splash-o-matic',
@@ -116,6 +120,8 @@ class Weapon:
     }
 
     weapon_fr = { 
+        'coop_gold': 'Aléatoire',
+        'coop_normal': 'Aléatoire',
         'bold': 'Marqueur lourd',
         'wakaba': 'Liquidateur Jr.',
         'sharp': 'Marqueur léger',
@@ -172,7 +178,9 @@ class Weapon:
         'kuma_slosher': 'Seau M. Ours SA'
     }
 
-    weapon_ja = { 
+    weapon_ja = {
+        'coop_gold': 'ランダム',
+        'coop_normal': 'ランダム',
         'bold': 'ボールドマーカー',
         'wakaba': 'わかばシューター',
         'sharp': 'シャープマーカー',
@@ -232,6 +240,8 @@ class Weapon:
     weapon_str = weapon_en
 
     weapon_img = { 
+        'coop_gold':'1abf2c45b1c66303c03cbe1fd880b863.png',
+        'coop_normal': '129a1b53a9781be90b1eda932b787c61.png',
         'bold': '44e5c595ef678318da4f0bf5dd14ebf1.png',
         'wakaba': '4d301a50dc81317f9fbc99bdb231eb14.png',
         'sharp': 'c799d9df72e924f3b862fb5a3425ccda.png',

@@ -1,4 +1,5 @@
 from time import strftime, gmtime
+from weapon import Weapon
 
 class Rotation:
     start_time:int = 0
@@ -68,13 +69,16 @@ class Rotation:
 
     def to_str(key: str, lang: str) -> str:
         if lang == "en":
-            return Rotation.waves_en[key]
+            return Rotation.stages_en[key]
         elif lang == "fr":
-            return Rotation.waves_fr[key]
+            return Rotation.stages_fr[key]
         elif lang == "ja":
-            return Rotation.waves_ja[key]
+            return Rotation.stages_ja[key]
         else: #current default to en
             return Rotation.waves_en[key]
+
+    def get_stage_name(self: 'Rotation', lang: str="en") -> str:
+        return Rotation.to_str(self.key, lang)
 
     def __init__(self: 'Rotation', raw_rotation: dict) -> None:
         # We use the image to derive the key as we don't have any id, and would need to rely on 
@@ -83,6 +87,11 @@ class Rotation:
         self.start_time  = raw_rotation['start_time']
         self.end_time    = raw_rotation['end_time']
         self.rotation_id = strftime('%Y%m%d%H', gmtime(self.start_time))
+        weapon_list: list['Weapon'] = []
+        for weapon in raw_rotation['weapons']:
+            weapon_list.append(Weapon(weapon['id']))
+
+
 
     def __eq__(self: 'Rotation', other: 'Rotation'):
         if isinstance(other, self.__class__):

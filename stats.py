@@ -107,7 +107,7 @@ def load_games(args) -> list['Game']:
             continue
         print(f"Adding {ng.job_id}")
         all_games.append(ng)
-    print(f"Games from {strftime('%Y-%m-%d %H:%M:%S %Z', mint)} to {strftime('%Y-%m-%d %H:%M:%S %Z', maxt)} => {g.rotation.rotation_id} (length = {((maxtime - mintime) / 3600):2.0f}h)")
+    print(f"Games from {strftime('%Y-%m-%d %H:%M:%S %Z', mint)} to {strftime('%Y-%m-%d %H:%M:%S %Z', maxt)} => {g.rotation.rotation_id} on {g.rotation.get_stage_name(args.lang)} (length = {((maxtime - mintime) / 3600):2.0f}h)")
     return all_games
 
 def update_players(all_games) -> None:
@@ -166,6 +166,5 @@ if __name__ == "__main__":
             f.write(print_weapons_html(session, args.lang))
             f.write(print_waves_html(session, args.lang))
         session.print_stats(args.lang)
-#        print(print_specials_html(stats, args.lang))
         update_players(all_games)
 
