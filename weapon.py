@@ -313,7 +313,7 @@ class Weapon:
         else: #current default to en
             self.weapon_str = Weapon.weapon_en
 
-    def __init__(self: 'Weapon', id: Union[list, bool]) -> None:
+    def __init__(self: 'Weapon', id: Union[int, str]) -> None:
         self.key = self.weapon_ids[int(id)]
 
     def __str__(self: 'Weapon') -> str:
