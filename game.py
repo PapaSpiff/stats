@@ -14,7 +14,7 @@ import urllib.request
 
 
 class Game:
-    def __str__(self):
+    def __str__(self: 'Game') -> str:
         return  'Rotation start: ' + str(datetime.fromtimestamp(self.start_time))\
             + '\nRotation end  : ' + str(datetime.fromtimestamp(self.end_time))\
             + '\nGame time     : ' + str(datetime.fromtimestamp(self.play_time))\
@@ -23,7 +23,7 @@ class Game:
             + '\nBoss Kills    : ' + str(self.boss_kill)\
             + '\nFilename      : ' + str(self.fname)
  
-    def process_game(self):
+    def process_game(self: 'Game') -> None:
         if not "job_id" in self.data:
             print(f"Error in {self.fname}, {self.data['message']}")
             # set fake times
@@ -228,7 +228,7 @@ class Game:
             self.goldtotal += player['golden_ikura_num']
             self.powertotal += player['ikura_num']
 
-    def load_images(self):
+    def load_images(self: 'Game') -> None:
         if not "schedule" in self.data:
             return
         if not os.path.isdir("images"):
@@ -281,7 +281,7 @@ class Game:
 
 
 
-    def check_game(self):
+    def check_game(self: 'Game') -> bool:
         # sanity check
         if self.play_time == 0:
             return False
@@ -294,7 +294,7 @@ class Game:
             return False
         return True
 
-    def load_game(self, name, dirname):
+    def load_game(self: 'Game', name: str, dirname: str) -> 'Game':
         with open(dirname + "/" + name, 'r', encoding="utf-8") as f:
             g = json.load(f)
  
@@ -305,7 +305,7 @@ class Game:
 #        print(g, file=RAWOut)
         return g
 
-    def __init__(self, f, dirname="results"):
+    def __init__(self: 'Game', f: str, dirname: str="results") -> None:
         self.fname = f
         self.data = self.load_game(f, dirname)
         self.process_game()

@@ -9,7 +9,7 @@ from statistics import quantiles as quantiles
 
 
 class GameSession:
-    def get_stats(self: 'GameSession', game_list: list[Game]):
+    def get_stats(self: 'GameSession', game_list: list[Game]) -> None:
         self.scores      = []
         self.kills       = []
         self.tkills      = []
@@ -223,7 +223,7 @@ class GameSession:
 
             self.totwavenight = max(1, self.wav_night)
 
-    def print_stats(self, lang="en"):
+    def print_stats(self: 'GameSession', lang:str="en") -> None:
         print(f"Number of games        : {len(self.scores)}")
         print("\nTeam Totals")
         print(f"Golden eggs max/min    : {max(self.goldentotal):3d} / {min(self.goldentotal):d}")

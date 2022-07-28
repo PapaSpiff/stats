@@ -1,26 +1,18 @@
-from pstats import StatsProfile
 import sys
 import json
 import os
 import glob
-from wave import Wave
-from special import Special
-from weapon import Weapon
-from bosslist import SalmonBossList
 from gamesession import GameSession
 from game import Game
 from htmlgen import print_html_head
 from htmlgen import print_specials_html, print_weapons_html, print_waves_html
-from datetime import datetime
 from os.path import exists
 from statistics import mean as mean
 from statistics import pstdev as pstdev
 from statistics import quantiles as quantiles
-import urllib.request
 import time
 from time import strftime
 import argparse
-from io import StringIO
 
 # job_id <num>
 # my_result -> help_count
@@ -61,7 +53,7 @@ from io import StringIO
             # ['griller',   16, 'sakedozer'],
             # ['drizzler',  21, 'sakerocket'],
 
-def load_games(args):
+def load_games(args) -> list['Game']:
     dirname = "results" if os.path.isdir("results") else "json"
     if (len(args.numgames) == 0):
         flist = glob.glob(dirname+"/*.json")
@@ -118,7 +110,7 @@ def load_games(args):
     print(f"Games from {strftime('%Y-%m-%d %H:%M:%S %Z', mint)} to {strftime('%Y-%m-%d %H:%M:%S %Z', maxt)} => {strftime('%Y%m%d%H', mint)} (length = {((maxtime - mintime) / 3600):2.0f}h)")
     return all_games
 
-def update_players(all_games):
+def update_players(all_games) -> None:
 #    RAWOut = open(1, 'w', encoding='utf8', closefd=False)
     players = dict()
     json_p_file = "players.json"
