@@ -503,8 +503,8 @@ def print_waves_html(session: GameSession, lang: str) -> str:
                 str_buffer.write(f"<td class='cohockpct'><span class='statslow' title='{Wave.cohock_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
             else:
                 str_buffer.write(f"<td class='cohockpct'><span class='statsnormal' title='{Wave.cohock_avg/100:3.2%}'>{ev_pct:3.2%}</span></td>")
-            str_buffer.write(f"<td class='cohockmax'><span title='min: {min(grill_g)}'>{max(grill_g)}</span></td>")
-            str_buffer.write(f"<td class='cohockavg'><span title='stddev: {pstdev(grill_g):.2f}'>{mean(grill_g):.2f}</span></td></tr>")
+            str_buffer.write(f"<td class='cohockmax'><span title='min: {min(session.lt_cohock_g)}'>{max(session.lt_cohock_g)}</span></td>")
+            str_buffer.write(f"<td class='cohockavg'><span title='stddev: {pstdev(session.lt_cohock_g):.2f}'>{mean(session.lt_cohock_g):.2f}</span></td></tr>")
         
     str_buffer.write("\n</tbody></table>")
     return str_buffer.getvalue()    
