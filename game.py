@@ -4,6 +4,7 @@ from wave import Wave
 from special import Special
 from weapon import Weapon
 from rotation import Rotation
+from player import Player
 from bosslist import SalmonBossList
 from datetime import datetime
 from os.path import exists
@@ -32,6 +33,7 @@ class Game:
             return self
         self.job_id        = self.data['job_id']
         self.rotation      = Rotation(self.data['schedule'])
+        self.main_player   = Player(self.data['my_result'])
         self.score         = self.data['job_score']
         self.start_time    = self.data['start_time']
         self.play_time     = self.data['play_time']

@@ -7,6 +7,7 @@ class Rotation:
     rotation_id: str
     key: str
     weapon_list: list[Weapon]
+    lang: str = "en"
 
     img_to_idx = {
         '/images/coop_stage/6d68f5baa75f3a94e5e9bfb89b82e7377e3ecd2c.png' : 'outpost',
@@ -81,6 +82,11 @@ class Rotation:
     def get_stage_name(self: 'Rotation', lang: str="en") -> str:
         return Rotation.to_str(self.key, lang)
 
+    def set_language(self: 'Rotation', lang:str) -> None:
+        self.lang = lang
+        for weapon in self.weapon_list:
+            weapon.set_language(lang)
+
     def __init__(self: 'Rotation', raw_rotation: dict) -> None:
         # We use the image to derive the key as we don't have any id, and would need to rely on 
         # implementing all languages
@@ -92,6 +98,9 @@ class Rotation:
         for weapon in raw_rotation['weapons']:
             weapon_list.append(Weapon(weapon['id']))
         self.weapon_list = weapon_list
+
+    def __str__(self: 'Rotation') -> str:
+        return self.get_stage_name(self.lang)
 
     def __eq__(self: 'Rotation', other: 'Rotation'):
         if isinstance(other, self.__class__):

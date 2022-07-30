@@ -6,6 +6,7 @@ from gamesession import GameSession
 from game import Game
 from htmlgen import print_html_head
 from htmlgen import print_specials_html, print_weapons_html, print_waves_html, print_rotation_html
+from template import html_player_rotation
 from os.path import exists
 from statistics import mean as mean
 from statistics import pstdev as pstdev
@@ -174,4 +175,5 @@ if __name__ == "__main__":
             f.write(print_waves_html(session, args.lang))
         session.print_stats(args.lang)
         update_players(all_games)
+        print(html_player_rotation(all_games[0].main_player,all_games[0].rotation, session, args.lang))
 

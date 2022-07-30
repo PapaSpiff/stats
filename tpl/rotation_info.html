@@ -1,0 +1,9 @@
+<div class='rotation' id='rotation_info'>
+  <div class='schedule-time'><span class='epoch' value='{{ rotation.start_time }}'>{{ rotation.start_time | epochgmttime }}</span> &#8658; <span class='epoch' value='{{ rotation.end_time }}'>{{ rotation.end_time | epochgmttime }}</span></div>
+  <div class='rotation-name'>{{ rotation }}</div>
+  <div class='weapon-set'>
+    {%- for weapon in rotation.weapon_list -%}
+    <figure class='weapon-list'><div><img src='{{ weapon.key|weapontoimg }}'></div><figcaption>{{ weapon }}</figcaption></figure>
+    {%- endfor %}
+  </div>
+</div>

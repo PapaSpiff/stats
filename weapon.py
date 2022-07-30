@@ -309,21 +309,24 @@ class Weapon:
             return Weapon.title[lang]
         return Weapon.title['en']
 
-    def to_img(key: str) -> str:        
-        return Weapon.weapon_img[key]
+    def to_img(key: str) -> str:
+        if key == 'coop_gold' or key == 'coop_normal':
+            return "/images/coop_weapons/" + Weapon.weapon_img[key]
+        return "/images/weapon/" + Weapon.weapon_img[key]
 
 
     def set_language(self: 'Weapon', lang: str) -> str:
         if lang == "en":
             self.weapon_str = Weapon.weapon_en
         elif lang == "fr":
-            self.special_str = Weapon.weapon_fr
+            self.weapon_str = Weapon.weapon_fr
         elif lang == "ja":
             self.weapon_str = Weapon.weapon_ja
         else: #current default to en
             self.weapon_str = Weapon.weapon_en
 
     def get_img_prefix(self: 'Weapon') -> str:
+        return 
         return "/images/weapon/" if self.id > 0 else "/images/coop_weapons/"
 
     def __init__(self: 'Weapon', id: Union[int, str]) -> None:

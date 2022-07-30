@@ -1,5 +1,3 @@
-from curses.ascii import SP
-
 
 class Special:
     special_ids = {

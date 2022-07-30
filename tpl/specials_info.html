@@ -1,0 +1,28 @@
+<div class='card' id='card-specials'>
+  <h1>{{ specialtitle }}</h1>
+  <div id='specials'>
+    {%- set ns = namespace(specialpercent = 0.0)         %}
+    {%- set all_scores     = session.scores|length       %}
+    {%- set specialsize    = session.my_specials|length  %}
+    <div class='specials-gradient' style='background: conic-gradient(
+      {%- for spkey, special in session.my_specials|dictsort(true,'value',true) -%}
+      {%-      if loop.index > 1 -%}, {% endif -%}
+      hsl({{ '%.2f'|format(loop.index * 360 / specialsize)}}deg 100% 50%) 
+      {{- ' %.2f%%'|format(100*ns.specialpercent) -}}
+      {%- set ns.specialpercent = ns.specialpercent + (special / all_scores) -%}
+      {{ ' %.2f%%'|format(100*ns.specialpercent) }}
+      {%- endfor %})'>
+      {%- set ns.specialpercent = 0.0                                           %}
+      {%- for spkey, special in session.my_specials|dictsort(true,'value',true) %}
+      {%-      set newpercent = special / all_scores           %}
+        <span class='special-percent' style='transform: translateY(-50%) rotate({{ '%5.2f'|format(180.0*(2*ns.specialpercent+newpercent)-90)}}deg)'>{{ '%5.2f%%'|format(100*newpercent)}}</span>
+      {%-      set ns.specialpercent = ns.specialpercent + newpercent %}
+      {%- endfor %}
+    </div>
+    <div class='specials-list'>
+      {%- for spkey, special in session.my_specials|dictsort(true,'value',true)  %}
+      <div class='special-{{ specialsize }}-{{ loop.index }}'><img class='special-img' src='/images/special/{{spkey|specialtoimg}}' alt='{{spkey|specialname(lang)}}'> <span class='special-name'>{{spkey|specialname(lang)}}</span> : <span class='special-count' title='special occurence'>{{special}}</span> <span class='special-usage-percent' title='special usage'>({{"%5.2f%%"|format(100*session.us_specials[spkey]/(2*special))}})</span></div>
+      {%- endfor %}
+    </div>
+  </div>
+</div>
