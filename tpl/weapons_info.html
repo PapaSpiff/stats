@@ -4,7 +4,7 @@
     {%- set ns = namespace(weaponpercent = 0.0)                %}
     {%- set all_waves     = session.wavetotal                  %}
     {%- set weaponsize    = session.my_weapons|length          %}
-    {%- set weaponsizemax = (session.my_weapons|length, 5)|max %}
+    {%- set weaponsizemax = (session.my_weapons|length, 5)|min %}
     <div class='weapons-gradient' style='background: conic-gradient(
       {%- for wkey, weapon in session.my_weapons|dictsort(true,'value',true) -%}
       {%-      if loop.index > 1 -%}, {% endif -%}
@@ -13,23 +13,23 @@
       {{- ' %.2f%%'|format(100*ns.weaponpercent) -}}
       {%-          if loop.index == 5 -%}
       {%-              set ns.weaponpercent = 1 - ns.weaponpercent                      -%}
-      {%-          else  -%}
+      {%-          else                                                               -%}
       {%-              set ns.weaponpercent = ns.weaponpercent + (weapon / all_waves) -%}
       {%-          endif -%}
       {{ ' %.2f%%'|format(100*ns.weaponpercent) }}
       {%-      endif             -%}
       {%- endfor %})'>
       {%- set ns.weaponpercent = 0.0                                            %}
-      {%- for wkey, weapon in session.my_weapons|dictsort(true,'value',true) %}
-      {%-      set newpercent = weapon / all_waves           %}
+      {%- for wkey, weapon in session.my_weapons|dictsort(true,'value',true)    %}
+      {%-      set newpercent = weapon / all_waves                              %}
         <span class='weapon-percent' style='transform: translateY(-50%) rotate({{ '%5.2f'|format(180.0*(2*ns.weaponpercent+newpercent)-90)}}deg)'>{{ '%5.2f%%'|format(100*newpercent)}}</span>
-      {%-      set ns.weaponpercent = ns.weaponpercent + newpercent %}
-      {%- endfor %}
+      {%-      set ns.weaponpercent = ns.weaponpercent + newpercent             %}
+      {%- endfor                                                                %}
     </div>
     <div class='weapons-list'>
       {%- for wkey, weapon in session.my_weapons|dictsort(true,'value',true)  %}
       <div class='weapon-{{ weaponsizemax }}-{{ (loop.index, weaponsizemax)|min }}'><img class='special-img' src='{{wkey|weapontoimg}}' alt='{{wkey|weaponname(lang)}}'> <span class='weapon-name'>{{wkey|weaponname(lang)}}</span> : <span class='weapon-count' title='weapon occurence'>{{weapon}}</span> <span class='weapon-occurence-percent' title='percentage of all occurences'>({{"%5.2f%%"|format(100*weapon/(all_waves))}})</span></div>
-      {%- endfor %}
+      {%- endfor                                                              %}
     </div>
   </div>
 </div>
