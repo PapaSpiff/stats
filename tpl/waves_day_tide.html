@@ -65,7 +65,7 @@
     </tr>
     {%- set pctlt = 100.0 * session.wav_lt / session.wavetotal %}
     <tr class='lowtidewaves'>
-      <th scope='row' class='lowtide'>{{ "low"|wavename(lang)}}/th>
+      <th scope='row' class='lowtide'>{{ "low"|wavename(lang)}}</th>
       <td class='lowtidenum'>{{ session.wav_lt }}</td>
       <td class='lowtidepct'><span {% if pctlt > (waves.low_avg + waves.wave_percent_max) -%}
         class='statshigh'
