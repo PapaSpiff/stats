@@ -42,7 +42,7 @@
     <tr class='hightidewaves'>
       <th scope='row' class='hightide'>{{ "high"|wavename(lang)}}</th>
       <td class='hightidenum'>{{ session.wav_ht }}</td>
-      <td class='hightidepct'><span class='{{ pctht|statsclass(waves.high_avg, waves.wave_percent_max) }}' title='{{ waves.high_avg }}'%>{{ "%6.2f"|format(pctht) }}%</span></td>
+      <td class='hightidepct'><span class='{{ pctht|statsclass(waves.high_avg, waves.wave_percent_max) }}' title='{{ waves.high_avg }}%'>{{ "%6.2f"|format(pctht) }}%</span></td>
       {%- if pctht > 0 -%}  
       <td class='hightidemaxeggs'><span title='{{ vmin }}: {{ session.ht_geggs|min }}'>{{ session.ht_geggs|max }}</span></td>
       <td class='hightideavgeggs'><span title='{{ stddev }}: {{ "%6.2f"|format(session.ht_geggs|pstdev) }}'>{{ "%6.2f"|format(session.ht_geggs|mean)}}</span></td>
