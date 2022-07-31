@@ -11,39 +11,7 @@
     <h1>{{ "title"|waveother(lang) }}</h1>
 {% include "waves_day_tide.html" %}
 {% include "waves_max.html"      %}
+{% include "waves_night.html"    %}
 </div>
-<!-- -->
-<div class='card' >
-<table id='nightwavemax'>
-    <thead>
-        <tr>
-            <th>Team total Golden Eggs</th>
-            <th scope='col'>Water levels</th>
-            <th scope='col'>%</th>
-            <th scope='col'>Max Eggs</th>
-            <th scope='col'>Average</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th class='mothership' rowspan='2' title='stolen eggs:4, average: 1.33'>The Mothership</th>
-            <td></td>
-            <td class='moshippct'><span class='statshigh' title='4.20%'>10.34%</span></td>
-            <td class='moshipmax'><span title='min: 25'>27</span></td>
-            <td class='moshipavg'><span title='stddev: 0.94'>25.67</span></td>
-        </tr>
-        <tr>
-            <td>Normal</td>
-            <td class='moshippct'><span class='statshigh' title='2.50%'>10.34%</span></td>
-            <td class='moshipmax'><span title='min: 25'>27</span></td>
-            <td class='moshipavg'><span title='stddev: 0.94'>25.67</span></td>
-        </tr>
-        <tr>
-            <th class='rush' rowspan='2'>Rush</th>
-            <td></td>
-            <td class='rushpct'><span class='statslow' title='4.20%'>3.45%</span></td>
-            <td class='rushmax'><span title='min: 0'>0</span></td>
-            <td class='rushavg'><span title='stddev: 0.00'>0.00</span></td>
-        </tr>
-        <tr><td>High tide</td><td class='rushpct'><span class='statshigh' title='1.00%'>3.45%</span></td><td class='rushmax'><span title='min: 0'>0</span></td><td class='rushavg'><span title='stddev: 0.00'>0.00</span></td></tr><tr><th class='seek' rowspan='2'>Goldie Seeking</th><td></td><td class='seekpct'><span class='statslow' title='4.20%'>3.45%</span></td><td class='seekmax'><span title='min: 36'>36</span></td><td class='seekavg'><span title='stddev: 0.00'>36.00</span></td></tr><tr><td>High tide</td><td class='seekpct'><span class='statshigh' title='1.00%'>3.45%</span></td><td class='seekmax'><span title='min: 36'>36</span></td><td class='seekavg'><span title='stddev: 0.00'>36.00</span></td></tr><tr><th class='mothership' rowspan='2'>Fog</th><td></td><td class='fogpct'><span class='statshigh' title='4.20%'>6.90%</span></td><td class='fogmax'><span title='min: 20'>33</span></td><td class='fogavg'><span title='stddev: 6.50'>26.50</span></td></tr><tr><td>Normal</td><td class='fogpct'><span class='statshigh' title='2.50%'>6.90%</span></td><td class='fogmax'><span title='min: 20'>33</span></td><td class='fogavg'><span title='stddev: 6.50'>26.50</span></td></tr><tr><th class='cohock'>Cohock Charge</th><td>Low tide</td><td class='cohockpct'><span class='statslow' title='4.20%'>3.45%</span></td><td class='cohockmax'><span title='min: 22'>22</span></td><td class='cohockavg'><span title='stddev: 0.00'>22.00</span></td></tr>
-</tbody></table>
+</body>
+</html>
