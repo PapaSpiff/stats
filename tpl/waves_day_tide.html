@@ -19,10 +19,10 @@
       <td class='daypct'><span class='{{ pctday|statsclass(waves.day_avg, waves.wave_percent_max) }}' title='{{ waves.day_avg }}%'>{{ "%6.2f"|format(pctday) }}%</span></td>
       {%- if pctday > 0 -%}   
       <td class='daymaxeggs'><span title='{{ vmin }}: {{ session.day_geggs|min }}'>{{ session.day_geggs|max }}</span></td>
-      <td class='dayavgeggs'><span title='{{ stddev }}: {{ "%6.2f"|format(session.day_geggs|pstdev) }}'>{{ "%6.2f"|format(session.day_geggs|mean)}}</span></td>
+      <td class='dayavgeggs'><span title='{{ median }}: {{ "%.2f"|format(session.day_geggs|median) }}, {{ stddev }}: {{ "%6.2f"|format(session.day_geggs|pstdev) }}'>{{ "%6.2f"|format(session.day_geggs|mean)}}</span></td>
       {%- else -%}
       <td class='daymaxeggs'><span title='{{ vmin }}: -'>-</span></td>
-      <td class='dayavgeggs'><span title='{{ stddev }}: -'>-</span></td>
+      <td class='dayavgeggs'><span title='{{ median }}: -, {{ stddev }}: -'>-</span></td>
       {%- endif -%}
     </tr>
     {%- set pctnight = 100.0 * session.wav_night / session.wavetotal %}
@@ -32,10 +32,10 @@
       <td class='nightct'><span class='{{ pctnight|statsclass(waves.night_avg, waves.wave_percent_max) }}' title='{{ waves.night_avg }}%'>{{ "%6.2f"|format(pctnight) }}%</span></td> 
       {%- if pctnight > 0 -%}  
       <td class='nightmaxeggs'><span title='{{ vmin }}: {{ session.night_geggs|min }}'>{{ session.night_geggs|max }}</span></td>
-      <td class='nightavgeggs'><span title='{{ stddev }}: {{ "%6.2f"|format(session.night_geggs|pstdev) }}'>{{ "%6.2f"|format(session.night_geggs|mean)}}</span></td>
+      <td class='nightavgeggs'><span title='{{ median }}: {{ "%.2f"|format(session.night_geggs|median) }}, {{ stddev }}: {{ "%6.2f"|format(session.night_geggs|pstdev) }}'>{{ "%6.2f"|format(session.night_geggs|mean)}}</span></td>
       {%- else -%}
       <td class='nightmaxeggs'><span title='{{ vmin }}: -'>-</span></td>
-      <td class='nightavgeggs'><span title='{{ stddev }}: -'>-</span></td>
+      <td class='nightavgeggs'><span title='{{ median }}: -, {{ stddev }}: -'>-</span></td>
       {%- endif -%}
     </tr>
     {%- set pctht = 100.0 * session.wav_ht / session.wavetotal %}
@@ -45,10 +45,10 @@
       <td class='hightidepct'><span class='{{ pctht|statsclass(waves.high_avg, waves.wave_percent_max) }}' title='{{ waves.high_avg }}%'>{{ "%6.2f"|format(pctht) }}%</span></td>
       {%- if pctht > 0 -%}  
       <td class='hightidemaxeggs'><span title='{{ vmin }}: {{ session.ht_geggs|min }}'>{{ session.ht_geggs|max }}</span></td>
-      <td class='hightideavgeggs'><span title='{{ stddev }}: {{ "%6.2f"|format(session.ht_geggs|pstdev) }}'>{{ "%6.2f"|format(session.ht_geggs|mean)}}</span></td>
+      <td class='hightideavgeggs'><span title='{{ median }}: {{ "%.2f"|format(session.ht_geggs|median) }}, {{ stddev }}: {{ "%6.2f"|format(session.ht_geggs|pstdev) }}'>{{ "%6.2f"|format(session.ht_geggs|mean)}}</span></td>
       {%- else -%}
       <td class='hightidemaxeggs'><span title='{{ vmin }}: -'>-</span></td>
-      <td class='hightideavgeggs'><span title='{{ stddev }}: -'>-</span></td>
+      <td class='hightideavgeggs'><span title='{{ median }}: -, {{ stddev }}: -'>-</span></td>
       {%- endif -%}
     </tr>
     {%- set pctnt = 100.0 * session.wav_nt / session.wavetotal %}
@@ -58,10 +58,10 @@
       <td class='normaltidepct'><span class='{{ pctnt|statsclass(waves.normal_avg, waves.wave_percent_max) }}' title='{{ waves.normal_avg }}%'>{{ "%6.2f"|format(pctnt) }}%</span></td>
       {%- if pctnt > 0 -%}
       <td class='normaltidemaxeggs'><span title='{{ vmin }}: {{ session.nt_geggs|min }}'>{{ session.nt_geggs|max }}</span></td>
-      <td class='normalideavgeggs'><span title='{{ stddev }}: {{ "%6.2f"|format(session.nt_geggs|pstdev) }}'>{{ "%6.2f"|format(session.nt_geggs|mean)}}</span></td>
+      <td class='normalideavgeggs'><span title='{{ median }}: {{ "%.2f"|format(session.nt_geggs|median) }}, {{ stddev }}: {{ "%6.2f"|format(session.nt_geggs|pstdev) }}'>{{ "%6.2f"|format(session.nt_geggs|mean)}}</span></td>
       {%- else -%}
       <td class='normaltidemaxeggs'><span title='{{ vmin }}: -'>-</span></td>
-      <td class='normalideavgeggs'><span title='{{ stddev }}: -'>-</span></td>
+      <td class='normalideavgeggs'><span title='{{ median }}: -, {{ stddev }}: -'>-</span></td>
       {%- endif -%}
     </tr>
     {%- set pctlt = 100.0 * session.wav_lt / session.wavetotal %}
@@ -71,10 +71,10 @@
       <td class='lowtidepct'><span class='{{ pctlt|statsclass(waves.low_avg, waves.wave_percent_max) }}' title='{{ waves.low_avg }}%'>{{ "%6.2f"|format(pctlt) }}%</span></td>
       {%- if pctlt > 0 -%}
       <td class='lowtidemaxeggs'><span title='{{ vmin }}: {{ session.lt_geggs|min }}'>{{ session.lt_geggs|max }}</span></td>
-      <td class='lowtideavgeggs'><span title='{{ stddev }}: {{ "%6.2f"|format(session.lt_geggs|pstdev) }}'>{{ "%6.2f"|format(session.lt_geggs|mean)}}</span></td>
+      <td class='lowtideavgeggs'><span title='{{ median }}: {{ "%.2f"|format(session.lt_geggs|median) }}, {{ stddev }}: {{ "%6.2f"|format(session.lt_geggs|pstdev) }}'>{{ "%6.2f"|format(session.lt_geggs|mean)}}</span></td>
       {%- else -%}
       <td class='lowtidemaxeggs'><span title='{{ vmin }}: -'>-</span></td>
-      <td class='lowtideavgeggs'><span title='{{ stddev }}: -'>-</span></td>
+      <td class='lowtideavgeggs'><span title='{{ median }}: -, {{ stddev }}: -'>-</span></td>
       {%- endif -%}
     </tr>
   </tbody>
