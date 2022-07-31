@@ -19,10 +19,18 @@
     </tr>
     <tr>
       <td class='maxgoldeneggs'><span title='occurences: {{ (session.scores)|length }}'>{{ session.goldentotal|max }}</span></td>
-      <td class='maxgoldeneggs3nights'><span title='occurences: {{ (session.all_nights_g)|length }}, average {{ "%6.2f"|format(session.all_nights_g|mean) }}'>{{ session.all_nights_g|max }}</span></td>
-      <td class='maxgoldeneggs2nights'><span title='occurences: {{ (session.two_nights_g)|length }}, average {{ "%6.2f"|format(session.two_nights_g|mean) }}'>{{ session.two_nights_g|max }}</span></td>
-      <td class='maxgoldeneggs1night'><span title='occurences: {{ (session.one_night_g)|length }}, average {{ "%6.2f"|format(session.one_night_g|mean) }}'>{{ session.one_night_g|max }}</span></td>
-      <td class='maxgoldeneggs3days'><span title='occurences: {{ (session.full_day_g)|length }}, average {{ "%6.2f"|format(session.full_day_g|mean) }}'>{{ session.full_day_g|max }}</span></td>
+      <td class='maxgoldeneggs3nights'>{%- if session.all_nights_g|length > 0 -%}<span title='occurences: {{ (session.all_nights_g)|length }}, average {{ "%6.2f"|format(session.all_nights_g|mean) }}'>{{ session.all_nights_g|max }}</span>
+      {%- else -%}<span title='occurences: -, average -'>-</span>
+      {%- endif -%}</td>
+      <td class='maxgoldeneggs2nights'>{%- if session.two_nights_g|length > 0 -%}<span title='occurences: {{ (session.two_nights_g)|length }}, average {{ "%6.2f"|format(session.two_nights_g|mean) }}'>{{ session.two_nights_g|max }}</span>
+      {%- else -%}<span title='occurences: -, average -'>-</span>
+      {%- endif -%}</td>
+      <td class='maxgoldeneggs1night'>{%- if session.one_night_g|length > 0 -%}<span title='occurences: {{ (session.one_night_g)|length }}, average {{ "%6.2f"|format(session.one_night_g|mean) }}'>{{ session.one_night_g|max }}</span>
+      {%- else -%}<span title='occurences: -, average -'>-</span>
+      {%- endif -%}</td>
+      <td class='maxgoldeneggs3days'>{%- if session.full_day_g|length > 0 -%}<span title='occurences: {{ (session.full_day_g)|length }}, average {{ "%6.2f"|format(session.full_day_g|mean) }}'>{{ session.full_day_g|max }}</span>
+      {%- else -%}<span title='occurences: -, average -'>-</span>
+      {%- endif -%}</td>
       <td class='avggoldeneggs'><span title='stddev: {{ "%6.2f"|format(session.goldentotal|pstdev) }}'>{{ "%6.2f"|format(session.goldentotal|mean) }}</span></td>
     </tr>
   </tbody>
