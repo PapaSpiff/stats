@@ -4,8 +4,6 @@ import os
 import glob
 from gamesession import GameSession
 from game import Game
-from htmlgen import print_html_head
-from htmlgen import print_specials_html, print_weapons_html, print_waves_html, print_rotation_html
 from template import html_player_rotation
 from os.path import exists
 from statistics import mean as mean
