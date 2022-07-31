@@ -1,0 +1,30 @@
+<table id='wavemax'>
+  <thead>
+    <tr>
+      <th colspan='7'>{{ "title"|waveother(lang) }}</th>
+    </tr>
+  </thead>
+  <tbody>
+  {%- set night  = "night"|wavename(lang)  -%}
+  {%- set nights = "nights"|wavename(lang) -%}
+  {%- set days   = "days"|wavename(lang)   -%}
+    <tr>
+      <td rowspan='2'>{{ "titlemax"|waveother(lang) }}</td>
+      <td>Overall<!-- TODO l10n --></td>
+      <td>3 {{ nights }}</td>
+      <td>2 {{ nights }}</td>
+      <td>1 {{ night }}</td>
+      <td>3 {{ days }}</td>
+      <td>{{ "average"|waveother(lang) }}</td>
+    </tr>
+    <tr>
+      <td class='maxgoldeneggs'><span title='occurences: {{ (session.scores)|length }}'>{{ session.goldentotal|max }}</span></td>
+      <td class='maxgoldeneggs3nights'><span title='occurences: {{ (session.all_nights_g)|length }}, average {{ "%6.2f"|format(session.all_nights_g|mean) }}'>{{ session.all_nights_g|max }}</span></td>
+      <td class='maxgoldeneggs2nights'><span title='occurences: {{ (session.two_nights_g)|length }}, average {{ "%6.2f"|format(session.two_nights_g|mean) }}'>{{ session.two_nights_g|max }}</span></td>
+      <td class='maxgoldeneggs1night'><span title='occurences: {{ (session.one_night_g)|length }}, average {{ "%6.2f"|format(session.one_night_g|mean) }}'>{{ session.one_night_g|max }}</span></td>
+      <td class='maxgoldeneggs3days'><span title='occurences: {{ (session.full_day_g)|length }}, average {{ "%6.2f"|format(session.full_day_g|mean) }}'>{{ session.full_day_g|max }}</span></td>
+      <td class='avggoldeneggs'><span title='stddev: {{ "%6.2f"|format(session.goldentotal|pstdev) }}'>{{ "%6.2f"|format(session.goldentotal|mean) }}</span></td>
+    </tr>
+  </tbody>
+</table>
+   
