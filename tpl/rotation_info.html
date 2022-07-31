@@ -1,5 +1,5 @@
 <div class='rotation' id='rotation_info'>
-  <div class='schedule-time'><span class='epoch' value='{{ rotation.start_time }}'>{{ rotation.start_time | epochgmttime }}</span> ⇒ <span class='epoch' value='{{ rotation.end_time }}'>{{ rotation.end_time | epochgmttime }}</span></div>
+  <div class='schedule-time'><span class='epoch' data-date='{{ rotation.start_time }}'>{{ rotation.start_time | epochgmttime }}</span> ⇒ <span class='epoch' data-date='{{ rotation.end_time }}'>{{ rotation.end_time | epochgmttime }}</span></div>
   <div class='rotation-name'>{{ rotation }}</div>
   <div class='weapon-set'>
     {%- for weapon in rotation.weapon_list -%}
