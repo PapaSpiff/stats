@@ -26,6 +26,11 @@ class Wave:
     fog_nt_avg   = 2.5
     fog_lt_avg   = 0.8
 
+# 'Maximum' => '最大',
+#    'Median' => '中央値',
+#    'Minimum' => '最小',
+# 'Average' => '平均'
+
     waves_en = {
         'day' : "Day",
         'days' : "Days",
@@ -85,18 +90,27 @@ class Wave:
         'titlemax' : "Team total Golden Eggs",
         'average'  : "Average",
         'maximum'  : "Maximum",
+        'occurence': "occurences",
+        'median'   : "median",
+        'stddev'   : "std.dev",
     }
     other_fr = {
         'title' : "Vagues",
         'titlemax' : "Totaux d'œufs dorés d'équipe",
         'average'  : "Moyenne",
         'maximum'  : "Maximum",
+        'occurence': "apparitions",
+        'median'   : "médian",
+        'stddev'   : "éc.type"
     }
     other_ja = {
         'title' : "WAVE",
         'titlemax' : "チーム合計の金イクラ納品数",
         'average'  : "平均",
         'maximum'  : "最大",
+        'occurence': "出現数",
+        'median'   : "中央",
+        'stddev'   : "標準偏差",
     }
 
     def other_str(key: str, lang: str) -> str:

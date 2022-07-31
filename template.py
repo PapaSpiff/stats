@@ -1,4 +1,4 @@
-from statistics import mean, pstdev
+from statistics import mean, pstdev, median
 import jinja2
 from player import Player
 from rotation import Rotation
@@ -48,6 +48,7 @@ def html_player_rotation(player: Player, rotation: Rotation, session: GameSessio
     env.filters["wavename"]     = wave_name
     env.filters["waveother"]    = wave_other
     env.filters["mean"]         = mean
+    env.filters["median"]       = median
     env.filters["pstdev"]       = pstdev
     env.filters["statsclass"]   = stats_class
     tpl = env.get_template("player_rotation.html")
