@@ -1,4 +1,4 @@
-<table id='waves'>
+<table id='wavetypes'>
   <thead>
     <tr><th scope='col'>Wave Types</th><th scope='col'>Occurences</th><th scope='col'>%</th><th scope='col'>Max Eggs</th><th scope='col'>Average</th></tr>
   </thead>
@@ -7,29 +7,15 @@
     <tr class='daywaves'>
       <th scope='row' class='day'>{{ "day"|wavename(lang)}}</th>
       <td class='daynum'>{{ session.wav_day }}</td>
-      <td class='daypct'><span {% if pctday > (waves.day_avg + waves.wave_percent_max) -%}
-        class='statshigh'
-        {% elif pctday < (waves.day_avg - waves.wave_percent_max) -%}
-        class='statslow'
-        {% else -%}
-        class='statsnormal'
-        {% endif -%}
-        title='{{ waves.day_avg }}%'>{{ "%6.2f"|format(pctday) }}%</span></td>      
+      <td class='daypct'><span class='{{ pctday|statsclass(waves.day_avg, waves.wave_percent_max) }}' title='{{ waves.day_avg }}%'>{{ "%6.2f"|format(pctday) }}%</span></td>      
       <td class='daymaxeggs'><span title='min:{{ session.day_geggs|min }}'>{{ session.day_geggs|max }}</span></td>
       <td class='dayavgeggs'><span title='stddev:{{ "%6.2f"|format(session.day_geggs|pstdev) }}'>{{ "%6.2f"|format(session.day_geggs|mean)}}</span></td>
     </tr>
+    {%- set pctnight = 100.0 * session.wav_night / session.wavetotal %}
     <tr class='nightwaves'>
-      {%- set pctnight = 100.0 * session.wav_night / session.wavetotal %}
       <th scope='row' class='night'>{{ "night"|wavename(lang)}}</th>
       <td class='nightnum'>{{ session.wav_night }}</td>
-      <td class='nightct'><span {% if pctnight > (waves.night_avg + waves.wave_percent_max) -%}
-        class='statshigh'
-        {% elif pctnight < (waves.night_avg - waves.wave_percent_max) -%}
-        class='statslow'
-        {% else -%}
-        class='statsnormal'
-        {% endif -%}
-        title='{{ waves.night_avg }}%'>{{ "%6.2f"|format(pctnight) }}%</span></td> 
+      <td class='nightct'><span class='{{ pctnight|statsclass(waves.night_avg, waves.wave_percent_max) }}' title='{{ waves.night_avg }}%'>{{ "%6.2f"|format(pctnight) }}%</span></td> 
       <td class='nightmaxeggs'><span title='min:{{ session.night_geggs|min }}'>{{ session.night_geggs|max }}</span></td>
       <td class='nightavgeggs'><span title='stddev:{{ "%6.2f"|format(session.night_geggs|pstdev) }}'>{{ "%6.2f"|format(session.night_geggs|mean)}}</span></td>
     </tr>
@@ -37,14 +23,7 @@
     <tr class='hightidewaves'>
       <th scope='row' class='hightide'>{{ "high"|wavename(lang)}}</th>
       <td class='hightidenum'>{{ session.wav_ht }}</td>
-      <td class='hightidepct'><span {% if pctht > (waves.high_avg + waves.wave_percent_max) -%}
-        class='statshigh'
-        {% elif pctht < (waves.high_avg - waves.wave_percent_max) -%}
-        class='statslow'
-        {% else -%}
-        class='statsnormal'
-        {% endif -%}
-        title='{{ waves.high_avg }}'%>{{ "%6.2f"|format(pctht) }}%</span></td>
+      <td class='hightidepct'><span class='{{ pctht|statsclass(waves.high_avg, waves.wave_percent_max) }}' title='{{ waves.high_avg }}'%>{{ "%6.2f"|format(pctht) }}%</span></td>
       <td class='hightidemaxeggs'><span title='min:{{ session.ht_geggs|min }}'>{{ session.ht_geggs|max }}</span></td>
       <td class='hightideavgeggs'><span title='stddev:{{ "%6.2f"|format(session.ht_geggs|pstdev) }}'>{{ "%6.2f"|format(session.ht_geggs|mean)}}</span></td>
     </tr>
@@ -52,14 +31,7 @@
     <tr class='normaltidewaves'>
       <th scope='row' class='normaltide'>{{ "normal"|wavename(lang)}}</th>
       <td class='normaltidenum'>{{ session.wav_nt }}</td>
-      <td class='normaltidepct'><span {% if pctnt > (waves.normal_avg + waves.wave_percent_max) -%}
-        class='statshigh'
-        {% elif pctnt < (waves.normal_avg - waves.wave_percent_max) -%}
-        class='statslow'
-        {% else -%}
-        class='statsnormal'
-        {% endif -%}
-        title='{{ waves.normal_avg }}%'>{{ "%6.2f"|format(pctnt) }}%</span></td>
+      <td class='normaltidepct'><span class='{{ pctnt|statsclass(waves.normal_avg, waves.wave_percent_max) }}' title='{{ waves.normal_avg }}%'>{{ "%6.2f"|format(pctnt) }}%</span></td>
       <td class='normaltidemaxeggs'><span title='min:{{ session.nt_geggs|min }}'>{{ session.nt_geggs|max }}</span></td>
       <td class='normalideavgeggs'><span title='stddev:{{ "%6.2f"|format(session.nt_geggs|pstdev) }}'>{{ "%6.2f"|format(session.nt_geggs|mean)}}</span></td>
     </tr>
@@ -67,14 +39,7 @@
     <tr class='lowtidewaves'>
       <th scope='row' class='lowtide'>{{ "low"|wavename(lang)}}</th>
       <td class='lowtidenum'>{{ session.wav_lt }}</td>
-      <td class='lowtidepct'><span {% if pctlt > (waves.low_avg + waves.wave_percent_max) -%}
-        class='statshigh'
-        {% elif pctlt < (waves.low_avg - waves.wave_percent_max) -%}
-        class='statslow'
-        {% else -%}
-        class='statsnormal'
-        {% endif -%}
-        title='{{ waves.low_avg }}%'>{{ "%6.2f"|format(pctlt) }}%</span></td>
+      <td class='lowtidepct'><span class='{{ pctlt|statsclass(waves.low_avg, waves.wave_percent_max) }}' title='{{ waves.low_avg }}%'>{{ "%6.2f"|format(pctlt) }}%</span></td>
       <td class='lowtidemaxeggs'><span title='min:{{ session.lt_geggs|min }}'>{{ session.lt_geggs|max }}</span></td>
       <td class='lowtideavgeggs'><span title='stddev:{{ "%6.2f"|format(session.lt_geggs|pstdev) }}'>{{ "%6.2f"|format(session.lt_geggs|mean)}}</span></td>
     </tr>

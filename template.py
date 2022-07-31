@@ -31,6 +31,13 @@ def wave_name(key: str, lang: str="en") -> str:
 def wave_other(key: str, lang: str="en") -> str:
     return Wave.other_str(key, lang)
 
+def stats_class(value: float, target: float, offset: float) -> str:
+    if (value > (target + offset)):
+        return "statshigh"
+    elif (value < (target - offset)):
+        return "statslow"
+    return "statsnormal"
+
 def html_player_rotation(player: Player, rotation: Rotation, session: GameSession, lang: str="en") -> str:
     env = Environment(loader=FileSystemLoader("tpl/", encoding='utf-8'))
     env.filters["epochgmttime"] = epoch_to_gmt_str
@@ -42,6 +49,7 @@ def html_player_rotation(player: Player, rotation: Rotation, session: GameSessio
     env.filters["waveother"]    = wave_other
     env.filters["mean"]         = mean
     env.filters["pstdev"]       = pstdev
+    env.filters["statsclass"]   = stats_class
     tpl = env.get_template("player_rotation.html")
     rotation.set_language(lang)
     return tpl.render(player=player, rotation=rotation, session=session, 
