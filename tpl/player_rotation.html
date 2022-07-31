@@ -13,5 +13,16 @@
 {% include "waves_max.html"      %}
 {% include "waves_night.html"    %}
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+  var epochList = document.getElementsByClassName('epoch');
+  for (var epoch of epochList) {
+        var d = new Date(0);
+        const realdate = epoch.getAttribute('data-date');
+        d.setUTCSeconds(parseInt(realdate));
+        epoch.textContent = d.toString();
+    }
+  });
+</script>
 </body>
 </html>
