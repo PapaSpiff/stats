@@ -5,13 +5,13 @@
     </tr>
   </thead>
   <tbody>
-  {%- set night     = "night"|wavename(lang)      -%}
-  {%- set nights    = "nights"|wavename(lang)     -%}
-  {%- set days      = "days"|wavename(lang)       -%}
+  {%- set night     = "night"|wavename(lang)          -%}
+  {%- set nights    = "nights"|wavename(lang)         -%}
+  {%- set days      = "days"|wavename(lang)           -%}
   {%- set average   = "average"|waveother(lang)|lower -%}
-  {%- set median    = "median"|waveother(lang)    -%}
-  {%- set stddev    = "stddev"|waveother(lang)    -%}
-  {%- set occurence = "occurence"|waveother(lang) -%}
+  {%- set median    = "median"|waveother(lang)        -%}
+  {%- set stddev    = "stddev"|waveother(lang)        -%}
+  {%- set occurence = "occurence"|waveother(lang)     -%}
     <tr>
       <td rowspan='2'>{{ "titlemax"|waveother(lang) }}</td>
       <td>{{ "maximum"|waveother(lang) }}</td>
@@ -23,17 +23,17 @@
     </tr>
     <tr>
       <td class='maxgoldeneggs'><span title='{{ occurence }}: {{ (session.scores)|length }}'>{{ session.goldentotal|max }}</span></td>
-      <td class='maxgoldeneggs3nights'>{%- if session.all_nights_g|length > 0 -%}<span title='{{ occurence }}: {{ (session.all_nights_g)|length }}, {{ average }} {{ "%6.2f"|format(session.all_nights_g|mean) }}'>{{ session.all_nights_g|max }}</span>
-      {%- else -%}<span title='{{ occurence }}: -, {{ average }} -'>-</span>
+      <td class='maxgoldeneggs3nights'>{%- if session.all_nights_g|length > 0 -%}<span title='{{ occurence }}: {{ (session.all_nights_g)|length }}, {{ average }}: {{ "%6.2f"|format(session.all_nights_g|mean) }}'>{{ session.all_nights_g|max }}</span>
+      {%- else -%}<span title='{{ occurence }}: -, {{ average }}: -'>-</span>
       {%- endif -%}</td>
-      <td class='maxgoldeneggs2nights'>{%- if session.two_nights_g|length > 0 -%}<span title='{{ occurence }}: {{ (session.two_nights_g)|length }}, {{ average }} {{ "%6.2f"|format(session.two_nights_g|mean) }}'>{{ session.two_nights_g|max }}</span>
-      {%- else -%}<span title='{{ occurence }}: -, {{ average }} -'>-</span>
+      <td class='maxgoldeneggs2nights'>{%- if session.two_nights_g|length > 0 -%}<span title='{{ occurence }}: {{ (session.two_nights_g)|length }}, {{ average }}: {{ "%6.2f"|format(session.two_nights_g|mean) }}'>{{ session.two_nights_g|max }}</span>
+      {%- else -%}<span title='{{ occurence }}: -, {{ average }}: -'>-</span>
       {%- endif -%}</td>
-      <td class='maxgoldeneggs1night'>{%- if session.one_night_g|length > 0 -%}<span title='{{ occurence }}: {{ (session.one_night_g)|length }}, {{ average }} {{ "%6.2f"|format(session.one_night_g|mean) }}'>{{ session.one_night_g|max }}</span>
-      {%- else -%}<span title='{{ occurence }}: -, {{ average }} -'>-</span>
+      <td class='maxgoldeneggs1night'>{%- if session.one_night_g|length > 0 -%}<span title='{{ occurence }}: {{ (session.one_night_g)|length }}, {{ average }}: {{ "%6.2f"|format(session.one_night_g|mean) }}'>{{ session.one_night_g|max }}</span>
+      {%- else -%}<span title='{{ occurence }}: -, {{ average }}: -'>-</span>
       {%- endif -%}</td>
-      <td class='maxgoldeneggs3days'>{%- if session.full_day_g|length > 0 -%}<span title=' {{ occurence }}: {{ (session.full_day_g)|length }}, {{ average }} {{ "%6.2f"|format(session.full_day_g|mean) }}'>{{ session.full_day_g|max }}</span>
-      {%- else -%}<span title='{{ occurence }}: -, {{ average }} -'>-</span>
+      <td class='maxgoldeneggs3days'>{%- if session.full_day_g|length > 0 -%}<span title=' {{ occurence }}: {{ (session.full_day_g)|length }}, {{ average }}: {{ "%6.2f"|format(session.full_day_g|mean) }}'>{{ session.full_day_g|max }}</span>
+      {%- else -%}<span title='{{ occurence }}: -, {{ average }}: -'>-</span>
       {%- endif -%}</td>
       <td class='avggoldeneggs'><span title='{{ median }}: {{ "%6.2f"|format(session.goldentotal|median) }}, {{ stddev }}: {{ "%6.2f"|format(session.goldentotal|pstdev) }}'>{{ "%6.2f"|format(session.goldentotal|mean) }}</span></td>
     </tr>

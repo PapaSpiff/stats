@@ -26,11 +26,6 @@ class Wave:
     fog_nt_avg   = 2.5
     fog_lt_avg   = 0.8
 
-# 'Maximum' => '最大',
-#    'Median' => '中央値',
-#    'Minimum' => '最小',
-# 'Average' => '平均'
-
     waves_en = {
         'day' : "Day",
         'days' : "Days",
@@ -87,27 +82,39 @@ class Wave:
 
     other_en = {
         'title' : "Waves",
+        'wavetype' : "Wave Type",
         'titlemax' : "Team total Golden Eggs",
         'average'  : "Average",
         'maximum'  : "Maximum",
+        'max'      : "max",
+        'minimum'  : "Minimum",
+        'min'      : "min",
         'occurence': "occurences",
         'median'   : "median",
         'stddev'   : "std.dev",
     }
     other_fr = {
         'title' : "Vagues",
+        'wavetype' : "Type de Vague",
         'titlemax' : "Totaux d'œufs dorés d'équipe",
         'average'  : "Moyenne",
         'maximum'  : "Maximum",
+        'max'      : "max",
+        'minimum'  : "Minimum",
+        'min'      : "min",
         'occurence': "apparitions",
         'median'   : "médian",
         'stddev'   : "éc.type"
     }
     other_ja = {
         'title' : "WAVE",
+        'wavetype' : "WAVE",
         'titlemax' : "チーム合計の金イクラ納品数",
         'average'  : "平均",
         'maximum'  : "最大",
+        'max'      : "最大",
+        'minimum'  : "最小",
+        'min'      : "最小",
         'occurence': "出現数",
         'median'   : "中央",
         'stddev'   : "標準偏差",
