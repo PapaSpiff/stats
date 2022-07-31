@@ -7,9 +7,9 @@
     {%- set weaponsizemax = (session.my_weapons|length, 5)|min %}
     <div class='weapons-gradient' style='background: conic-gradient(
       {%- for wkey, weapon in session.my_weapons|dictsort(true,'value',true) -%}
-      {%-      if loop.index > 1 -%}, {% endif -%}
       {%-      if loop.index <= 5 -%}
-      hsl({{ '%.2f'|format(loop.index * 360 / weaponsize)}}deg 100% 50%) 
+      {%-          if loop.index > 1 -%}, {% endif -%}
+      hsl({{ '%.2f'|format(loop.index * 360 / weaponsizemax)}}deg 100% 50%)
       {{- ' %.2f%%'|format(100*ns.weaponpercent) -}}
       {%-          if loop.index == 5 -%}
       {%-              set ns.weaponpercent = 1 - ns.weaponpercent                      -%}
@@ -22,8 +22,13 @@
       {%- set ns.weaponpercent = 0.0                                            %}
       {%- for wkey, weapon in session.my_weapons|dictsort(true,'value',true)    %}
       {%-      set newpercent = weapon / all_waves                              %}
-        <span class='weapon-percent' style='transform: translateY(-50%) rotate({{ '%5.2f'|format(180.0*(2*ns.weaponpercent+newpercent)-90)}}deg)'>{{ '%5.2f%%'|format(100*newpercent)}}</span>
-      {%-      set ns.weaponpercent = ns.weaponpercent + newpercent             %}
+      {%-      if loop.index <= 5 -%}
+      {%-          if loop.index == 5 -%}
+      {%-              set newpercent = 1 - ns.weaponpercent                    %}
+      {%-          endif -%}
+      <span class='weapon-percent' style='transform: translateY(-50%) rotate({{ '%5.2f'|format(180.0*(2*ns.weaponpercent+newpercent)-90)}}deg)'>{{ '%5.2f%%'|format(100*newpercent)}}</span>
+      {%-          set ns.weaponpercent = ns.weaponpercent + newpercent -%}
+      {%-      endif             -%}
       {%- endfor                                                                %}
     </div>
     <div class='weapons-list'>
