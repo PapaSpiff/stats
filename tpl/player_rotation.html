@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         var d = new Date(0);
         const realdate = epoch.getAttribute('data-date');
         d.setUTCSeconds(parseInt(realdate));
-        epoch.textContent = d.toString();
+        epoch.textContent = d.toLocaleString("{{ lang }}", { dateStyle: 'full', timeStyle: 'long' });
     }
   });
 </script>
