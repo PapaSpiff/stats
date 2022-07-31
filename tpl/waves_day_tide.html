@@ -9,7 +9,7 @@
   {%- set vmin      = "min"|waveother(lang)           -%}
   {%- set vmax      = "max"|waveother(lang)           -%}
   <thead>
-    <tr><th scope='col'>{{ "wavetype"|waveother }}</th><th scope='col'>{{ occurence|capitalize }}</th><th scope='col'>%</th><th scope='col'>{{ "maximum"|waveother|capitalize }}</th><th scope='col'>{{ average|capitalize }}</th></tr>
+    <tr><th scope='col'>{{ "wavetype"|waveother(lang) }}</th><th scope='col'>{{ occurence|capitalize }}</th><th scope='col'>%</th><th scope='col'>{{ "maximum"|waveother(lang)|capitalize }}</th><th scope='col'>{{ average|capitalize }}</th></tr>
   </thead>
   <tbody>
     {%- set pctday = 100.0 * session.wav_day / session.wavetotal %}

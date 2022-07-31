@@ -109,7 +109,8 @@ def load_games(args) -> list['Game']:
         print(f"Adding {ng.job_id}")
         all_games.append(ng)
     if (rotonly):
-        print(f"Games from {strftime('%Y-%m-%d %H:%M:%S %Z', mint)} to {strftime('%Y-%m-%d %H:%M:%S %Z', maxt)} => {g.rotation.rotation_id} on {g.rotation.get_stage_name(args.lang)} (length = {((maxtime - mintime) / 3600):2.0f}h)")
+        RAWOut = open(1, 'w', encoding='utf8', closefd=False)
+        print(f"Games from {strftime('%Y-%m-%d %H:%M:%S %Z', mint)} to {strftime('%Y-%m-%d %H:%M:%S %Z', maxt)} => {g.rotation.rotation_id} on {g.rotation.get_stage_name(args.lang)} (length = {((maxtime - mintime) / 3600):2.0f}h)", file=RAWOut)
     else:
         print("Games from multiple rotation added")
 
@@ -167,13 +168,7 @@ if __name__ == "__main__":
         session.get_stats(all_games)
         rotonly = args.rotation or not (args.all or args.single)
         with open(args.out, 'w', encoding="utf-8") as f:
-            f.write(print_html_head(session, args.lang))
-            if (rotonly):
-                f.write(print_rotation_html(all_games[0], args.lang))
-            f.write(print_specials_html(session, args.lang))
-            f.write(print_weapons_html(session, args.lang))
-            f.write(print_waves_html(session, args.lang))
+            f.write(html_player_rotation(all_games[0].main_player,all_games[0].rotation, session, rotonly, args.lang))
         session.print_stats(args.lang)
         update_players(all_games)
-        print(html_player_rotation(all_games[0].main_player,all_games[0].rotation, session, args.lang))
 

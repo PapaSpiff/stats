@@ -33,7 +33,7 @@
 {%-     set ev_pct     = 100 * session.ev_moship / session.wavetotal -%}
 {%-     set ev_g       = session.ht_moship_g + session.nt_moship_g + session.lt_moship_g -%}
   <tr class='moship'>
-    <th class='mothership' rowspan='{{ ns.rpan }}' title='stolen eggs: {{ stoleneggs }}, {{ average }}: {{ "%.2f"|format(stoleneggs / session.ev_moship) }}'>{{ "the-mothership"|wavename }}</th>
+    <th class='mothership' rowspan='{{ ns.rpan }}' title='stolen eggs: {{ stoleneggs }}, {{ average }}: {{ "%.2f"|format(stoleneggs / session.ev_moship) }}'>{{ "the-mothership"|wavename(lang) }}</th>
     <td></td>
     <td class='evppct'><span class='{{ ev_pct|statsclass(waves.ms_avg, waves.night_wave_percent_max) }}' title='{{ waves.ms_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ ev_g|length }}, {{ vmin }}: {{ ev_g|min }}'>{{ ev_g|max }}</span></td>
@@ -42,7 +42,7 @@
 {%-     if session.ht_moship > 0 -%}
 {%-         set ev_pct = 100 * session.ht_moship / session.wavetotal -%}
   <tr class='moship'>
-    <td>{{ "high"|wavename }}</td>
+    <td>{{ "high"|wavename(lang) }}</td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.ms_ht_avg, waves.night_wave_percent_max) }}' title='{{ waves.ms_ht_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ session.ht_moship_g|length }}, {{ vmin }}: {{ session.ht_moship_g|min }}'>{{ session.ht_moship_g|max }}</span></td>
     <td class='evavg'><span title='{{ median }}: {{ "%.2f"|format(session.ht_moship_g|median) }}, {{ stddev }}: {{ "%.2f"|format(session.ht_moship_g|pstdev) }}'>{{ "%.2f"|format(session.ht_moship_g|mean) }}</span></td>
@@ -51,7 +51,7 @@
 {%-     if session.nt_moship > 0 -%}
 {%-         set ev_pct = 100 * session.nt_moship / session.wavetotal -%}
   <tr class='moship'>
-    <td>{{ "normal"|wavename }}</td>
+    <td>{{ "normal"|wavename(lang) }}</td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.ms_nt_avg, waves.night_wave_percent_max) }}' title='{{ waves.ms_nt_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ session.nt_moship_g|length }}, {{ vmin }}: {{ session.nt_moship_g|min }}'>{{ session.nt_moship_g|max }}</span></td>
     <td class='evavg'><span title='{{ median }}: {{ "%.2f"|format(session.nt_moship_g|median) }}, {{ stddev }}: {{ "%.2f"|format(session.nt_moship_g|pstdev) }}'>{{ "%.2f"|format(session.nt_moship_g|mean) }}</span></td>
@@ -60,7 +60,7 @@
 {%-     if session.lt_moship > 0 -%}
 {%-         set ev_pct = 100 * session.lt_moship / session.wavetotal -%}
   <tr class='moship'>
-    <td>{{ "low"|wavename }}</td>
+    <td>{{ "low"|wavename(lang) }}</td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.ms_lt_avg, waves.night_wave_percent_max) }}' title='{{ waves.ms_lt_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ session.lt_moship_g|length }}, {{ vmin }}: {{ session.lt_moship_g|min }}'>{{ session.lt_moship_g|max }}</span></td>
     <td class='evavg'><span title='{{ median }}: {{ "%.2f"|format(session.lt_moship_g|median) }}, {{ stddev }}: {{ "%.2f"|format(session.lt_moship_g|pstdev) }}'>{{ "%.2f"|format(session.lt_moship_g|mean) }}</span></td>
@@ -81,7 +81,7 @@
 {%-     set ev_pct = 100 * session.ev_fog / session.wavetotal -%}
 {%-     set ev_g   = session.ht_fog_g + session.nt_fog_g + session.lt_fog_g -%}
   <tr class='fog'>
-    <th class='fog' rowspan='{{ ns.rpan }}'>{{ "fog"|wavename }}</th>
+    <th class='fog' rowspan='{{ ns.rpan }}'>{{ "fog"|wavename(lang) }}</th>
     <td></td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.fog_avg, waves.night_wave_percent_max) }}' title='{{ waves.fog_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ ev_g|length }}, {{ vmin }}: {{ ev_g|min }}'>{{ ev_g|max }}</span></td>
@@ -90,7 +90,7 @@
 {%-     if session.ht_fog > 0 -%}
 {%-         set ev_pct = 100 * session.ht_fog / session.wavetotal -%}
   <tr class='fog'>
-    <td>{{ "high"|wavename }}</td>
+    <td>{{ "high"|wavename(lang) }}</td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.fog_ht_avg, waves.night_wave_percent_max) }}' title='{{ waves.fog_ht_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ session.ht_fog_g|length }}, {{ vmin }}: {{ session.ht_fog_g|min }}'>{{ session.ht_fog_g|max }}</span></td>
     <td class='evavg'><span title='{{ median }}: {{ "%.2f"|format(session.ht_fog_g|median) }}, {{ stddev }}: {{ "%.2f"|format(session.ht_fog_g|pstdev) }}'>{{ "%.2f"|format(session.ht_fog_g|mean) }}</span></td>
@@ -99,7 +99,7 @@
 {%-     if session.nt_fog > 0 -%}
 {%-         set ev_pct = 100 * session.nt_fog / session.wavetotal -%}
   <tr class='fog'>
-    <td>{{ "normal"|wavename }}</td>
+    <td>{{ "normal"|wavename(lang) }}</td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.fog_nt_avg, waves.night_wave_percent_max) }}' title='{{ waves.fog_nt_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ session.nt_fog_g|length }}, {{ vmin }}: {{ session.nt_fog_g|min }}'>{{ session.nt_fog_g|max }}</span></td>
     <td class='evavg'><span title='{{ median }}: {{ "%.2f"|format(session.nt_fog_g|median) }}, {{ stddev }}: {{ "%.2f"|format(session.nt_fog_g|pstdev) }}'>{{ "%.2f"|format(session.nt_fog_g|mean) }}</span></td>
@@ -108,7 +108,7 @@
 {%-     if session.lt_fog > 0 -%}
 {%-         set ev_pct = 100 * session.lt_fog / session.wavetotal -%}
   <tr class='fog'>
-    <td>{{ "low"|wavename }}</td>
+    <td>{{ "low"|wavename(lang) }}</td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.fog_lt_avg, waves.night_wave_percent_max) }}' title='{{ waves.fog_lt_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ session.lt_fog_g|length }}, {{ vmin }}: {{ session.lt_fog_g|min }}'>{{ session.lt_fog_g|max }}</span></td>
     <td class='evavg'><span title='{{ median }}: {{ "%.2f"|format(session.lt_fog_g|median) }}, {{ stddev }}: {{ "%.2f"|format(session.lt_fog_g|pstdev) }}'>{{ "%.2f"|format(session.lt_fog_g|mean) }}</span></td>
@@ -126,7 +126,7 @@
 {%-     set ev_pct = 100 * session.ev_seek / session.wavetotal -%}
 {%-     set ev_g   = session.ht_seek_g + session.nt_seek_g -%}
   <tr class='seek'>
-    <th class='seek' rowspan='{{ ns.rpan }}'>{{ "goldie-seeking"|wavename }}</th>
+    <th class='seek' rowspan='{{ ns.rpan }}'>{{ "goldie-seeking"|wavename(lang) }}</th>
     <td></td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.seek_avg, waves.night_wave_percent_max) }}' title='{{ waves.seek_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ ev_g|length }}, {{ vmin }}: {{ ev_g|min }}'>{{ ev_g|max }}</span></td>
@@ -135,7 +135,7 @@
 {%-     if session.ht_seek > 0 -%}
 {%-         set ev_pct = 100 * session.ht_seek / session.wavetotal -%}
   <tr class='seek'>
-    <td>{{ "high"|wavename }}</td>
+    <td>{{ "high"|wavename(lang) }}</td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.seek_ht_avg, waves.night_wave_percent_max) }}' title='{{ waves.seek_ht_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ session.ht_seek_g|length }}, {{ vmin }}: {{ session.ht_seek_g|min }}'>{{ session.ht_seek_g|max }}</span></td>
     <td class='evavg'><span title='{{ median }}: {{ "%.2f"|format(session.ht_seek_g|median) }}, {{ stddev }}: {{ "%.2f"|format(session.ht_seek_g|pstdev) }}'>{{ "%.2f"|format(session.ht_seek_g|mean) }}</span></td>
@@ -144,7 +144,7 @@
 {%-     if session.nt_seek > 0 -%}
 {%-         set ev_pct = 100 * session.nt_seek / session.wavetotal -%}
   <tr class='seek'>
-    <td>{{ "normal"|wavename }}</td>
+    <td>{{ "normal"|wavename(lang) }}</td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.seek_nt_avg, waves.night_wave_percent_max) }}' title='{{ waves.seek_nt_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ session.nt_seek_g|length }}, {{ vmin }}: {{ session.nt_seek_g|min }}'>{{ session.nt_seek_g|max }}</span></td>
     <td class='evavg'><span title='{{ median }}: {{ "%.2f"|format(session.nt_seek_g|median) }}, {{ stddev }}: {{ "%.2f"|format(session.nt_seek_g|pstdev) }}'>{{ "%.2f"|format(session.nt_seek_g|mean) }}</span></td>
@@ -162,7 +162,7 @@
 {%-     set ev_pct = 100 * session.ev_rush / session.wavetotal -%}
 {%-     set ev_g   = session.ht_rush_g + session.nt_rush_g -%}
   <tr class='rush'>
-    <th class='rush' rowspan='{{ ns.rpan }}'>{{ "rush"|wavename }}</th>
+    <th class='rush' rowspan='{{ ns.rpan }}'>{{ "rush"|wavename(lang) }}</th>
     <td></td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.rush_avg, waves.night_wave_percent_max) }}' title='{{ waves.rush_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ ev_g|length }}, {{ vmin }}: {{ ev_g|min }}'>{{ ev_g|max }}</span></td>
@@ -171,7 +171,7 @@
 {%-     if session.ht_rush > 0 -%}
 {%-         set ev_pct = 100 * session.ht_rush / session.wavetotal -%}
   <tr class='rush'>
-    <td>{{ "high"|wavename }}</td>
+    <td>{{ "high"|wavename(lang) }}</td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.rush_ht_avg, waves.night_wave_percent_max) }}' title='{{ waves.rush_ht_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ session.ht_rush_g|length }}, {{ vmin }}: {{ session.ht_rush_g|min }}'>{{ session.ht_rush_g|max }}</span></td>
     <td class='evavg'><span title='{{ median }}: {{ "%.2f"|format(session.ht_rush_g|median) }}, {{ stddev }}: {{ "%.2f"|format(session.ht_rush_g|pstdev) }}'>{{ "%.2f"|format(session.ht_rush_g|mean) }}</span></td>
@@ -180,7 +180,7 @@
 {%-     if session.nt_rush > 0 -%}
 {%-         set ev_pct = 100 * session.nt_rush / session.wavetotal -%}
   <tr class='rush'>
-    <td>{{ "normal"|wavename }}</td>
+    <td>{{ "normal"|wavename(lang) }}</td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.rush_nt_avg, waves.night_wave_percent_max) }}' title='{{ waves.rush_nt_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ session.nt_rush_g|length }}, {{ vmin }}: {{ session.nt_rush_g|min }}'>{{ session.nt_rush_g|max }}</span></td>
     <td class='evavg'><span title='{{ median }}: {{ "%.2f"|format(session.nt_rush_g|median) }}, {{ stddev }}: {{ "%.2f"|format(session.nt_rush_g|pstdev) }}'>{{ "%.2f"|format(session.nt_rush_g|mean) }}</span></td>
@@ -198,7 +198,7 @@
 {%-     set ev_pct = 100 * session.ev_grills / session.wavetotal -%}
 {%-     set ev_g   = session.ht_grills_g + session.nt_grills_g -%}
   <tr class='griller'>
-    <th class='griller' rowspan='{{ ns.rpan }}'>{{ "griller"|wavename }}</th>
+    <th class='griller' rowspan='{{ ns.rpan }}'>{{ "griller"|wavename(lang) }}</th>
     <td></td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.grill_avg, waves.night_wave_percent_max) }}' title='{{ waves.grill_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ ev_g|length }}, {{ vmin }}: {{ ev_g|min }}'>{{ ev_g|max }}</span></td>
@@ -207,7 +207,7 @@
 {%-     if session.ht_grills > 0 -%}
 {%-         set ev_pct = 100 * session.ht_grills / session.wavetotal -%}
   <tr class='griller'>
-    <td>{{ "high"|wavename }}</td>
+    <td>{{ "high"|wavename(lang) }}</td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.grill_ht_avg, waves.night_wave_percent_max) }}' title='{{ waves.grill_ht_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ session.ht_grills_g|length }}, {{ vmin }}: {{ session.ht_grills_g|min }}'>{{ session.ht_grills_g|max }}</span></td>
     <td class='evavg'><span title='{{ median }}: {{ "%.2f"|format(session.ht_grills_g|median) }}, {{ stddev }}: {{ "%.2f"|format(session.ht_grills_g|pstdev) }}'>{{ "%.2f"|format(session.ht_grills_g|mean) }}</span></td>
@@ -216,7 +216,7 @@
 {%-     if session.nt_grills > 0 -%}
 {%-         set ev_pct = 100 * session.nt_grills / session.wavetotal -%}
   <tr class='griller'>
-    <td>{{ "normal"|wavename }}</td>
+    <td>{{ "normal"|wavename(lang) }}</td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.grill_nt_avg, waves.night_wave_percent_max) }}' title='{{ waves.grill_nt_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ session.nt_grills_g|length }}, {{ vmin }}: {{ session.nt_grills_g|min }}'>{{ session.nt_grills_g|max }}</span></td>
     <td class='evavg'><span title='{{ median }}: {{ "%.2f"|format(session.nt_grills_g|median) }}, {{ stddev }}: {{ "%.2f"|format(session.nt_grills_g|pstdev) }}'>{{ "%.2f"|format(session.nt_grills_g|mean) }}</span></td>
@@ -227,7 +227,7 @@
 {%-     set ev_pct = 100 * session.ev_cohock / session.wavetotal -%}
 {%-     set ev_g   = session.lt_cohock_g -%}
   <tr class='cohock'>
-    <th class='cohock' rowspan='1'>{{ "cohock-charge"|wavename }}</th>
+    <th class='cohock' rowspan='1'>{{ "cohock-charge"|wavename(lang) }}</th>
     <td></td>
     <td class='evpct'><span class='{{ ev_pct|statsclass(waves.cohock_avg, waves.night_wave_percent_max) }}' title='{{ waves.cohock_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
     <td class='evmax'><span title='{{ occurence }}: {{ ev_g|length }}, {{ vmin }}: {{ ev_g|min }}'>{{ ev_g|max }}</span></td>

@@ -38,7 +38,7 @@ def stats_class(value: float, target: float, offset: float) -> str:
         return "statslow"
     return "statsnormal"
 
-def html_player_rotation(player: Player, rotation: Rotation, session: GameSession, lang: str="en") -> str:
+def html_player_rotation(player: Player, rotation: Rotation, session: GameSession, rotonly: bool=True, lang: str="en") -> str:
     env = Environment(loader=FileSystemLoader("tpl/", encoding='utf-8'))
     env.filters["epochgmttime"] = epoch_to_gmt_str
     env.filters["weapontoimg"]  = weapon_key_to_img
@@ -51,7 +51,10 @@ def html_player_rotation(player: Player, rotation: Rotation, session: GameSessio
     env.filters["median"]       = median
     env.filters["pstdev"]       = pstdev
     env.filters["statsclass"]   = stats_class
-    tpl = env.get_template("player_rotation.html")
+    if rotonly:
+        tpl = env.get_template("player_rotation.html")
+    else:
+        tpl = env.get_template("player.html")
     rotation.set_language(lang)
     return tpl.render(player=player, rotation=rotation, session=session, 
                     specialtitle=Special.title_str(lang), weapontitle=Weapon.title_str(lang),
