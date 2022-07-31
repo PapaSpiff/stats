@@ -7,21 +7,43 @@
 {% include "rotation_info.html"  %}
 {% include "specials_info.html"  %}
 {% include "weapons_info.html"   %}
-<div class="card">
+<div class='card' id='card-waves'>
+    <h1>{{ "title"|waveother(lang) }}</h1>
 {% include "waves_day_tide.html" %}
+{% include "waves_max.html"      %}
 </div>
 <!-- -->
-<div class='card' id='card-waves'>
-<h1>Waves</h1><table id='waves'>
-<thead><tr><th scope='col'>Wave Types</th><th scope='col'>Occurences</th><th scope='col'>%</th><th scope='col'>Max Eggs</th><th scope='col'>Average</th></tr></thead>
-<tbody><tr class='daywaves'><th scope='row' class='day'>Day</th><td class='daynum'> 21</td><td class='daypct'><span class='statslow' title='75.00%'>72.41%</span></td><td class='daymaxeggs'><span title='min:  15.00'> 37.00</span></td><td class='dayavgeggs'><span title='stddev:   5.51'> 26.29</span></td></tr>
-<tr class='nightwaves'><th scope='row' class='night'>Night</th><td class='nightnum'>  8</td><td class='nightpct'><span class='statshigh' title='25.00%'>27.59%</span></td><td class='nightmaxeggs'><span title='min:   0.00'> 36.00</span></td><td class='nightavgeggs'><span title='stddev:  10.19'> 23.50</span></td></tr>
-<tr class='hightidewaves'><th scope='row' class='hightide'>High tide</th><td class='hightidenum'>  7</td><td class='hightidepct'><span class='statshigh' title='20.00%'>24.14%</span></td><td class='hightidemaxeggs'><span title='min:   0.00'> 36.00</span></td><td class='hightideavgeggs'><span title='stddev:  12.25'> 24.86</span></td></tr>
-<tr class='normaltidewaves'><th scope='row' class='normaltide'>Normal</th><td class='normaltidenum'> 19</td><td class='normaltidepct'><span class='statshigh' title='60.00%'>65.52%</span></td><td class='normaltidemaxeggs'><span title='min:  20.00'> 33.00</span></td><td class='normalideavgeggs'><span title='stddev:   3.98'> 25.16</span></td></tr>
-<tr class='lowtidewaves'><th scope='row' class='lowtide'>Low tide</th><td class='lowtidenum'>  3</td><td class='lowtidepct'><span class='statslow' title='20.00%'>10.34%</span></td><td class='lowtidemaxeggs'><span title='min:  22.00'> 37.00</span></td><td class='lowtideavgeggs'><span title='stddev:   6.13'> 29.33</span></td></tr>
-</tbody></table><table id='wavemax'>
-<thead><tr><th colspan='7'>Waves</tr></thead><tbody><tr><td rowspan='2'>Team total Golden Eggs</td><td>Overall</td><td>3 Nights</td><td>2 Nights</td><td>1 Night</td><td>3 Days</td><td>Average</td></tr>
-<tr><td class='maxgoldeneggs'><span title='occurences: 10'> 98</span></td><td class='maxgoldeneggs3nights'><span title='occurences: 0, average -'>-</span></td><td class='maxgoldeneggs2nights'><span title='occurences: 1, average: 86.00'> 86</span></td><td class='maxgoldeneggs1night'><span title='occurences: 5, average: 80.80'> 98</span></td><td class='maxgoldeneggs3days'><span title='occurences: 3, average: 78.33'> 84</span></td><td class='maxgoldeneggs'><span title='stddev: 21.13'>74.00</span></td></tr>
-</tbody></table><table id='nightwavemax'>
-<thead><tr><th>Team total Golden Eggs</th><th scope='col'>Water levels</th><th scope='col'>%</th><th scope='col'>Max Eggs</th><th scope='col'>Average</th></tr></thead><tbody><tr><th class='mothership' rowspan='2' title='stolen eggs:4, average: 1.33'>The Mothership</th><td></td><td class='moshippct'><span class='statshigh' title='4.20%'>10.34%</span></td><td class='moshipmax'><span title='min: 25'>27</span></td><td class='moshipavg'><span title='stddev: 0.94'>25.67</span></td></tr><tr><td>Normal</td><td class='moshippct'><span class='statshigh' title='2.50%'>10.34%</span></td><td class='moshipmax'><span title='min: 25'>27</span></td><td class='moshipavg'><span title='stddev: 0.94'>25.67</span></td></tr><tr><th class='rush' rowspan='2'>Rush</th><td></td><td class='rushpct'><span class='statslow' title='4.20%'>3.45%</span></td><td class='rushmax'><span title='min: 0'>0</span></td><td class='rushavg'><span title='stddev: 0.00'>0.00</span></td></tr><tr><td>High tide</td><td class='rushpct'><span class='statshigh' title='1.00%'>3.45%</span></td><td class='rushmax'><span title='min: 0'>0</span></td><td class='rushavg'><span title='stddev: 0.00'>0.00</span></td></tr><tr><th class='seek' rowspan='2'>Goldie Seeking</th><td></td><td class='seekpct'><span class='statslow' title='4.20%'>3.45%</span></td><td class='seekmax'><span title='min: 36'>36</span></td><td class='seekavg'><span title='stddev: 0.00'>36.00</span></td></tr><tr><td>High tide</td><td class='seekpct'><span class='statshigh' title='1.00%'>3.45%</span></td><td class='seekmax'><span title='min: 36'>36</span></td><td class='seekavg'><span title='stddev: 0.00'>36.00</span></td></tr><tr><th class='mothership' rowspan='2'>Fog</th><td></td><td class='fogpct'><span class='statshigh' title='4.20%'>6.90%</span></td><td class='fogmax'><span title='min: 20'>33</span></td><td class='fogavg'><span title='stddev: 6.50'>26.50</span></td></tr><tr><td>Normal</td><td class='fogpct'><span class='statshigh' title='2.50%'>6.90%</span></td><td class='fogmax'><span title='min: 20'>33</span></td><td class='fogavg'><span title='stddev: 6.50'>26.50</span></td></tr><tr><th class='cohock'>Cohock Charge</th><td>Low tide</td><td class='cohockpct'><span class='statslow' title='4.20%'>3.45%</span></td><td class='cohockmax'><span title='min: 22'>22</span></td><td class='cohockavg'><span title='stddev: 0.00'>22.00</span></td></tr>
+<div class='card' >
+<table id='nightwavemax'>
+    <thead>
+        <tr>
+            <th>Team total Golden Eggs</th>
+            <th scope='col'>Water levels</th>
+            <th scope='col'>%</th>
+            <th scope='col'>Max Eggs</th>
+            <th scope='col'>Average</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th class='mothership' rowspan='2' title='stolen eggs:4, average: 1.33'>The Mothership</th>
+            <td></td>
+            <td class='moshippct'><span class='statshigh' title='4.20%'>10.34%</span></td>
+            <td class='moshipmax'><span title='min: 25'>27</span></td>
+            <td class='moshipavg'><span title='stddev: 0.94'>25.67</span></td>
+        </tr>
+        <tr>
+            <td>Normal</td>
+            <td class='moshippct'><span class='statshigh' title='2.50%'>10.34%</span></td>
+            <td class='moshipmax'><span title='min: 25'>27</span></td>
+            <td class='moshipavg'><span title='stddev: 0.94'>25.67</span></td>
+        </tr>
+        <tr>
+            <th class='rush' rowspan='2'>Rush</th>
+            <td></td>
+            <td class='rushpct'><span class='statslow' title='4.20%'>3.45%</span></td>
+            <td class='rushmax'><span title='min: 0'>0</span></td>
+            <td class='rushavg'><span title='stddev: 0.00'>0.00</span></td>
+        </tr>
+        <tr><td>High tide</td><td class='rushpct'><span class='statshigh' title='1.00%'>3.45%</span></td><td class='rushmax'><span title='min: 0'>0</span></td><td class='rushavg'><span title='stddev: 0.00'>0.00</span></td></tr><tr><th class='seek' rowspan='2'>Goldie Seeking</th><td></td><td class='seekpct'><span class='statslow' title='4.20%'>3.45%</span></td><td class='seekmax'><span title='min: 36'>36</span></td><td class='seekavg'><span title='stddev: 0.00'>36.00</span></td></tr><tr><td>High tide</td><td class='seekpct'><span class='statshigh' title='1.00%'>3.45%</span></td><td class='seekmax'><span title='min: 36'>36</span></td><td class='seekavg'><span title='stddev: 0.00'>36.00</span></td></tr><tr><th class='mothership' rowspan='2'>Fog</th><td></td><td class='fogpct'><span class='statshigh' title='4.20%'>6.90%</span></td><td class='fogmax'><span title='min: 20'>33</span></td><td class='fogavg'><span title='stddev: 6.50'>26.50</span></td></tr><tr><td>Normal</td><td class='fogpct'><span class='statshigh' title='2.50%'>6.90%</span></td><td class='fogmax'><span title='min: 20'>33</span></td><td class='fogavg'><span title='stddev: 6.50'>26.50</span></td></tr><tr><th class='cohock'>Cohock Charge</th><td>Low tide</td><td class='cohockpct'><span class='statslow' title='4.20%'>3.45%</span></td><td class='cohockmax'><span title='min: 22'>22</span></td><td class='cohockavg'><span title='stddev: 0.00'>22.00</span></td></tr>
 </tbody></table>
