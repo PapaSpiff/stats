@@ -84,16 +84,19 @@ class Wave:
         'title' : "Waves",
         'titlemax' : "Team total Golden Eggs",
         'average'  : "Average",
+        'maximum'  : "Maximum",
     }
     other_fr = {
         'title' : "Vagues",
         'titlemax' : "Totaux d'œufs dorés d'équipe",
         'average'  : "Moyenne",
+        'maximum'  : "Maximum",
     }
     other_ja = {
         'title' : "WAVE",
         'titlemax' : "チーム合計の金イクラ納品数",
         'average'  : "平均",
+        'maximum'  : "最大",
     }
 
     def other_str(key: str, lang: str) -> str:
