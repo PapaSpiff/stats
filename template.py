@@ -5,6 +5,7 @@ from rotation import Rotation
 from gamesession import GameSession
 from weapon import Weapon
 from special import Special
+from bosslist import SalmonBossList
 from wave import Wave
 from jinja2 import Environment, FileSystemLoader
 from typing import Union
@@ -42,6 +43,9 @@ def stats_class(value: float, target: float, offset: float) -> str:
 def count_value(value: list) -> list:
     return Counter(value)
 
+def boss_name(key: str, lang: str="en") -> str:
+    return SalmonBossList.get_boss_name(key, lang)
+
 
 def html_player_rotation(player: Player, rotation: Rotation, session: GameSession, rotonly: bool=True, lang: str="en") -> str:
     env = Environment(loader=FileSystemLoader("tpl/", encoding='utf-8'))
@@ -57,6 +61,7 @@ def html_player_rotation(player: Player, rotation: Rotation, session: GameSessio
     env.filters["pstdev"]       = pstdev
     env.filters["statsclass"]   = stats_class
     env.filters["countitem"]    = count_value
+    env.filters["bossname"]     = boss_name
     if rotonly:
         tpl = env.get_template("player_rotation.html")
     else:
@@ -64,5 +69,5 @@ def html_player_rotation(player: Player, rotation: Rotation, session: GameSessio
     rotation.set_language(lang)
     return tpl.render(player=player, rotation=rotation, session=session, 
                     specialtitle=Special.title_str(lang), weapontitle=Weapon.title_str(lang),
-                    waves=Wave(),
+                    waves=Wave(), bosslist=SalmonBossList(),
                     lang=lang)

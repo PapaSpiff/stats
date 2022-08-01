@@ -55,7 +55,9 @@ class SalmonBossList:
         return str(self.b_list)
 
 
-    def __init__(self: 'SalmonBossList', gamedict: dict, fname: str) -> None:
+    def __init__(self: 'SalmonBossList', gamedict: dict=None, fname: str=None) -> None:
+        if gamedict == None:
+            return
         self.b_list = {}
         for key, name in self.boss_names.items():
             self.b_list[name] = gamedict[key]['count']
