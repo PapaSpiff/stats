@@ -9,6 +9,7 @@ from wave import Wave
 from jinja2 import Environment, FileSystemLoader
 from typing import Union
 from time import strftime, gmtime
+from collections import Counter
 
 def epoch_to_gmt_str(epoch: Union[str,int]) -> str:
     return strftime('%Y-%m-%d %H:%M:%S %Z', gmtime(int(epoch)))
@@ -38,6 +39,10 @@ def stats_class(value: float, target: float, offset: float) -> str:
         return "statslow"
     return "statsnormal"
 
+def count_value(value: list) -> list:
+    return Counter(value)
+
+
 def html_player_rotation(player: Player, rotation: Rotation, session: GameSession, rotonly: bool=True, lang: str="en") -> str:
     env = Environment(loader=FileSystemLoader("tpl/", encoding='utf-8'))
     env.filters["epochgmttime"] = epoch_to_gmt_str
@@ -51,6 +56,7 @@ def html_player_rotation(player: Player, rotation: Rotation, session: GameSessio
     env.filters["median"]       = median
     env.filters["pstdev"]       = pstdev
     env.filters["statsclass"]   = stats_class
+    env.filters["countitem"]    = count_value
     if rotonly:
         tpl = env.get_template("player_rotation.html")
     else:
