@@ -67,6 +67,9 @@ class Game:
         self.waves_nt      = 0
         self.waves_lt      = 0
         self.waves_day     = 0
+        self.ht_day        = 0
+        self.nt_day        = 0
+        self.lt_day        = 0
         self.waves_night   = 0
         self.event_moship  = 0
         self.event_rush    = 0
@@ -93,6 +96,12 @@ class Game:
         self.night_peggs   = []
         self.day_geggs     = []
         self.day_peggs     = []
+        self.ht_day_g      = []
+        self.ht_day_p      = []
+        self.nt_day_g      = []
+        self.nt_day_p      = []
+        self.lt_day_g      = []
+        self.lt_day_p      = []
         self.ht_geggs      = []
         self.ht_peggs      = []
         self.nt_geggs      = []
@@ -153,6 +162,18 @@ class Game:
                 self.waves_day += 1
                 self.day_geggs.append(wave_geggs)
                 self.day_peggs.append(wave_peggs)
+                if water_level == "high":
+                    self.ht_day += 1
+                    self.ht_day_g.append(wave_geggs)
+                    self.ht_day_p.append(wave_peggs)
+                elif water_level == "normal":
+                    self.nt_day += 1
+                    self.nt_day_g.append(wave_geggs)
+                    self.nt_day_p.append(wave_peggs)
+                elif water_level == "low":
+                    self.lt_day += 1
+                    self.lt_day_g.append(wave_geggs)
+                    self.lt_day_p.append(wave_peggs)
             else:
                 self.waves_night += 1
                 self.night_geggs.append(wave_geggs)

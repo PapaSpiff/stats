@@ -1,6 +1,7 @@
-<table id='wavesnight'>
+<table id='wavesdetails'>
   {%- set night     = "night"|wavename(lang)          -%}
   {%- set nights    = "nights"|wavename(lang)         -%}
+  {%- set day       = "day"|wavename(lang)            -%}
   {%- set days      = "days"|wavename(lang)           -%}
   {%- set average   = "average"|waveother(lang)|lower -%}
   {%- set median    = "median"|waveother(lang)        -%}
@@ -18,6 +19,54 @@
     </tr>
 </thead>
 <tbody>
+{%- if session.wav_day > 0            -%}
+{%-     set ns = namespace(rpan = 1)  -%}
+{%-     if session.ht_day > 0         -%}
+{%-         set ns.rpan = ns.rpan + 1 -%}
+{%-     endif                         -%}
+{%-     if session.nt_day > 0         -%}
+{%-         set ns.rpan = ns.rpan + 1 -%}
+{%-     endif                         -%}
+{%-     if session.lt_day > 0         -%}
+{%-         set ns.rpan = ns.rpan + 1 -%}
+{%-     endif                         -%}
+{%-     set ev_pct = 100 * session.wav_day / session.wavetotal -%}
+{%-     set ev_g   = session.ht_day_g + session.nt_day_g + session.lt_day_g -%}
+  <tr class='day'>
+    <th class='day' rowspan='{{ ns.rpan }}'>{{ "day"|wavename(lang) }}</th>
+    <td></td>
+    <td class='evpct'><span class='{{ ev_pct|statsclass(waves.day_avg, waves.wave_percent_max) }}' title='{{ waves.day_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
+    <td class='evmax'><span title='{{ occurence }}: {{ ev_g|length }}, {{ vmin }}: {{ ev_g|min }}'>{{ ev_g|max }}</span></td>
+    <td class='evavg'><span title='{{ median }}: {{ "%.2f"|format(ev_g|median) }}, {{ stddev }}: {{ "%.2f"|format(ev_g|pstdev) }}'>{{ "%.2f"|format(ev_g|mean) }}</span></td>
+  </tr>
+{%-     if session.ht_day > 0         -%}
+{%-         set ev_pct = 100 * session.ht_day / session.wavetotal -%}
+<tr class='day'>
+  <td>{{ "high"|wavename(lang) }}</td>
+  <td class='evpct'><span class='{{ ev_pct|statsclass(waves.day_ht_avg, waves.night_wave_percent_max) }}' title='{{ waves.day_ht_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
+  <td class='evmax'><span title='{{ occurence }}: {{ session.ht_day_g|length }}, {{ vmin }}: {{ session.ht_day_g|min }}'>{{ session.ht_day_g|max }}</span></td>
+  <td class='evavg'><span title='{{ median }}: {{ "%.2f"|format(session.ht_day_g|median) }}, {{ stddev }}: {{ "%.2f"|format(session.ht_day_g|pstdev) }}'>{{ "%.2f"|format(session.ht_day_g|mean) }}</span></td>
+</tr>
+{%-     endif                         -%}
+{%-     if session.nt_day > 0         -%}
+{%-         set ev_pct = 100 * session.nt_day / session.wavetotal -%}
+  <tr class='day'>
+    <td>{{ "normal"|wavename(lang) }}</td>
+    <td class='evpct'><span class='{{ ev_pct|statsclass(waves.day_nt_avg, waves.night_wave_percent_max) }}' title='{{ waves.day_nt_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
+    <td class='evmax'><span title='{{ occurence }}: {{ session.nt_day_g|length }}, {{ vmin }}: {{ session.nt_day_g|min }}'>{{ session.nt_day_g|max }}</span></td>
+    <td class='evavg'><span title='{{ median }}: {{ "%.2f"|format(session.nt_day_g|median) }}, {{ stddev }}: {{ "%.2f"|format(session.nt_day_g|pstdev) }}'>{{ "%.2f"|format(session.nt_day_g|mean) }}</span></td>
+  </tr>
+{%-     endif                         -%}
+{%-     if session.lt_day > 0         -%}
+{%-         set ev_pct = 100 * session.lt_day / session.wavetotal -%}
+  <tr class='day'>
+    <td>{{ "low"|wavename(lang) }}</td>
+    <td class='evpct'><span class='{{ ev_pct|statsclass(waves.day_lt_avg, waves.night_wave_percent_max) }}' title='{{ waves.day_lt_avg }}%'>{{ "%.2f"|format(ev_pct) }}%</span></td>
+    <td class='evmax'><span title='{{ occurence }}: {{ session.lt_day_g|length }}, {{ vmin }}: {{ session.lt_day_g|min }}'>{{ session.lt_day_g|max }}</span></td>
+    <td class='evavg'><span title='{{ median }}: {{ "%.2f"|format(session.lt_day_g|median) }}, {{ stddev }}: {{ "%.2f"|format(session.lt_day_g|pstdev) }}'>{{ "%.2f"|format(session.lt_day_g|mean) }}</span></td>
+  </tr>
+{%-     endif                         -%}
+{%- endif                             -%}
 {%- if session.ev_moship > 0          -%}
 {%-     set ns = namespace(rpan = 1)  -%}
 {%-     if session.ht_moship > 0      -%}

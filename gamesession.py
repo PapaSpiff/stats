@@ -42,6 +42,9 @@ class GameSession:
         self.wav_lt      = 0
         self.wav_day     = 0
         self.wav_night   = 0
+        self.ht_day      = 0
+        self.nt_day      = 0
+        self.lt_day      = 0
         self.ev_moship   = 0
         self.ev_rush     = 0
         self.ev_grills   = 0
@@ -60,6 +63,9 @@ class GameSession:
         self.ht_fog      = 0
         self.nt_fog      = 0
         self.lt_fog      = 0
+        self.ht_day_g    = []
+        self.nt_day_g    = []
+        self.lt_day_g    = []
         self.ht_seek_g   = []
         self.nt_seek_g   = []
         self.ht_rush_g   = []
@@ -142,6 +148,12 @@ class GameSession:
                 self.night_geggs.append(eggs)
             for eggs in g.night_peggs:
                 self.night_peggs.append(eggs)
+            for eggs in g.ht_day_g:
+                self.ht_day_g.append(eggs)
+            for eggs in g.nt_day_g:
+                self.nt_day_g.append(eggs)
+            for eggs in g.lt_day_g:
+                self.lt_day_g.append(eggs)
             for eggs in g.ht_seek_g:
                 self.ht_seek_g.append(eggs)
             for eggs in g.nt_seek_g:
@@ -188,6 +200,9 @@ class GameSession:
             #else: 
                 # incomplete game, do not count them
                 #print(f"Error in game, too many waves : {str(g)}")
+            self.ht_day    += g.ht_day
+            self.nt_day    += g.nt_day
+            self.lt_day    += g.lt_day
             self.ev_moship += g.event_moship
             self.ev_rush   += g.event_rush
             self.ev_grills += g.event_grills

@@ -3,6 +3,9 @@ class Wave:
     wave_percent_max = 2
     night_wave_percent_max = 0.7
     day_avg      = 75
+    day_ht_avg   = 15
+    day_nt_avg   = 45
+    day_lt_avg   = 15
     night_avg    = 25
     low_avg      = 20
     normal_avg   = 60
