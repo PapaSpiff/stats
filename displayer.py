@@ -5,6 +5,7 @@ import gzip
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument('-name', action=argparse.BooleanOptionalAction, default=False)
     parser.add_argument('idplayer', metavar='id', type=str, nargs='*', help='player id')
     args = parser.parse_args()
 
@@ -21,15 +22,33 @@ if __name__ == "__main__":
         pidlist = args.idplayer
 
     for pid in pidlist:
-        if pid in players:
-            ndict = dict()
-            playerdict = players[pid]
-            for entry in playerdict:
-                ndict[entry] = len(playerdict[entry])
-            print(f"Player ID: \"{pid}\"", file=RAWOut)
-            for k in dict(sorted(ndict.items(), reverse=True, key=lambda item: item[1])):
-                print(f"         -> \"{k} ({ndict[k]})", file=RAWOut)            
+        if args.name:
+            # lookup by name (contained in real name)
+            res = []
+            for player in players:
+                for name in players[player]:
+                    if pid in name:
+                        res.append(player)
+            if len(res) > 0:
+               for p in res:
+                    playerdict = players[p]
+                    ndict = dict()
+                    for entry in playerdict:
+                        ndict[entry] = len(playerdict[entry])
+                    print(f"Player ID: \"{p}\"", file=RAWOut)
+                    for k in dict(sorted(ndict.items(), reverse=True, key=lambda item: item[1])):
+                        print(f"         -> \"{k} ({ndict[k]})", file=RAWOut)
         else:
-            print(f"Player ID '{pid}' not found", file=RAWOut)
+            # lookup by id (exact)
+            if pid in players:
+                ndict = dict()
+                playerdict = players[pid]
+                for entry in playerdict:
+                    ndict[entry] = len(playerdict[entry])
+                print(f"Player ID: \"{pid}\"", file=RAWOut)
+                for k in dict(sorted(ndict.items(), reverse=True, key=lambda item: item[1])):
+                    print(f"         -> \"{k} ({ndict[k]})", file=RAWOut)
+            else:
+                print(f"Player ID '{pid}' not found", file=RAWOut)
         
 
