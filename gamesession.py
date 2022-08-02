@@ -76,7 +76,7 @@ class GameSession:
         self.nt_moship_g = []
         self.lt_moship_g = []
         self.ht_fog_g    = []
-        self.nt_fog_g    = []
+        self.nt_fog_g    = []  
         self.lt_fog_g    = []
         self.lt_cohock_g = []
         self.full_day_g  = []
@@ -97,6 +97,11 @@ class GameSession:
                              "sakedozer"       : [], "sakerocket"         : [],
                              "sakelien-golden" : [] }
         self.boss_kill   = { "sakelien-bomber" : [], "sakelien-cup-twins" : [],
+                             "sakelien-shield" : [], "sakelien-snake"     : [],
+                             "sakelien-tower"  : [], "sakediver"          : [],
+                             "sakedozer"       : [], "sakerocket"         : [],
+                             "sakelien-golden" : [] }
+        self.boss_tkill  = { "sakelien-bomber" : [], "sakelien-cup-twins" : [],
                              "sakelien-shield" : [], "sakelien-snake"     : [],
                              "sakelien-tower"  : [], "sakediver"          : [],
                              "sakedozer"       : [], "sakerocket"         : [],
@@ -224,6 +229,10 @@ class GameSession:
             for boss_name in SalmonBossList.boss_names.values():
                 self.boss_list[boss_name].append(g.boss_list.b_list[boss_name])
                 self.boss_kill[boss_name].append(g.boss_kill.b_list[boss_name])
+                tkill = 0
+                for player_kill in g.boss_k_team:
+                    tkill = tkill + player_kill.b_list[boss_name]
+                self.boss_tkill[boss_name].append(tkill)
             if g.special.key in self.my_specials:
                 self.my_specials[g.special.key] += 1
                 self.us_specials[g.special.key] += g.special_usage

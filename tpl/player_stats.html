@@ -49,17 +49,32 @@
         <td class="left">Raises</td>
         <td class="right" title='total: {{ session.raises|sum }}, {{ median }}: {{ "%.2f"|format(session.raises|median)}}, {{ stddev }}: {{ "%.2f"|format(session.raises|pstdev)}}'>{{ "%.2f"|format(session.raises|mean) }}</td>
       </tr>
-      {%-     set nb_games = session.scores|length        -%}
-      {%- for bkey in session.boss_list                   -%}
-      {%-     set boss_kill = session.boss_kill[bkey]|sum -%}
-      {%-     set boss_app = session.boss_list[bkey]|sum  -%}
-      {%-     if boss_app > 0                             -%}
+      <tr>
+        <td class="left">Danger Level</td>
+        <td class="right" title='{{ median }}: {{ "%.2f%%"|format(session.dangerrate|median)}}, {{ stddev }}: {{ "%.2f%%"|format(session.dangerrate|pstdev)}}'>{{ "%.2f%%"|format(session.dangerrate|mean) }}</td>
+      </tr>
+      <tr>
+        <td class="left">Retrieval Rate</td>
+        <td class="right" title='{{ vmax }}: {{ "%.2f%%"|format(100*session.retr_rate|max)}}, {{ median }}: {{ "%.2f%%"|format(100*session.retr_rate|median)}}, {{ stddev }}: {{ "%.2f%%"|format(100*session.retr_rate|pstdev)}}'>{{ "%.2f%%"|format(100*session.retr_rate|mean) }}</td>
+      </tr>
+      <tr>
+        <td class="left">Generated Eggs</td>
+        <td class="right" title='{{ vmax }}: {{ session.goldengen|max }}, {{ median }}: {{ "%.2f"|format(session.goldengen|median)}}, {{ stddev }}: {{ "%.2f"|format(session.goldengen|pstdev)}}'>{{ "%.2f"|format(session.goldengen|mean) }}</td>
+      </tr>
+      {%-     set nb_games = session.scores|length               -%}
+      {%- for bkey in session.boss_list                          -%}
+      {%-     set boss_kill       = session.boss_kill[bkey]|sum  -%}
+      {%-     set boss_app        = session.boss_list[bkey]|sum  -%}
+      {%-     set other_boss_kill = session.boss_tkill[bkey]|sum -%}
+      {%-     if boss_app > 0                                    -%}
       <tr class="bosskill">
         <td class="left" title='{{ occurence }}: {{ boss_app}} ({{ "%.2f"|format(boss_app / nb_games) }}/game), {{ stddev }}: {{ "%.2f"|format(session.boss_list[bkey]|pstdev) }}'>{{ bkey|bossname(lang) }}</td>
-        <td class="right" title='{{ occurence }}: {{ boss_kill }} ({{ "%.2f"|format(boss_kill / nb_games) }}/game), {{ stddev }}: {{ "%.2f"|format(session.boss_kill[bkey]|pstdev) }}'>{{ "%.2f%%"|format(100 * boss_kill / boss_app) }}</td>
+        <td class="right" title='{{ occurence }}: {{ boss_kill }} ({{ "%.2f"|format(boss_kill / nb_games) }}/game), {{ stddev }}: {{ "%.2f"|format(session.boss_kill[bkey]|pstdev) }}'>{{ "%.2f%%"|format(100 * boss_kill / boss_app) }}
+          <span class="team-boss-kills" title='team kills: {{ (boss_kill + other_boss_kill) }}'>({{ "%.2f%%"|format(100 * (boss_kill + other_boss_kill) / boss_app) }})</span>
+        </td>
       </tr>
-      {%- endif                                           -%}
-      {%- endfor                                          -%}
+      {%- endif                                                  -%}
+      {%- endfor                                                 -%}
     </tbody>
   </table>
 </div>
