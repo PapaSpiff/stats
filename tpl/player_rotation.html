@@ -6,14 +6,14 @@
 </head><body>
 <div id="main">
 {% include "rotation_info.html"  %}
-{% include "player_stats.html" %}
+{% include "player_stats.html"   %}
 {% include "specials_info.html"  %}
 {% include "weapons_info.html"   %}
     <div class='card' id='card-waves'>
     <h1>{{ "title"|waveother(lang) }}</h1>
-{% include "waves_day_tide.html" %}
 {% include "waves_max.html"      %}
-{% include "waves_detailed.html"    %}
+{% include "waves_day_tide.html" %}
+{% include "waves_detailed.html" %}
     </div>
 </div>
 <script>
