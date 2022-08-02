@@ -58,7 +58,7 @@ class Game:
             player_bkill = SalmonBossList(other_players['boss_kill_counts'], self.fname)
             self.boss_k_team.append(player_bkill)
             self.boss_tkill_n += player_bkill.sum_boss()
-            self.players.append({"name" : other_players['name'], "player_id" : other_players['pid']})
+            self.players.append(Player(other_players))
         self.danger_rate   = self.data['danger_rate']
         self.passed        = self.data['job_result']['is_clear']
         self.wavespassed   = 3 if self.passed else self.data['job_result']['failure_wave'] - 1

@@ -12,6 +12,7 @@ from statistics import quantiles as quantiles
 import time
 from time import strftime
 import argparse
+import gzip
 
 # job_id <num>
 # my_result -> help_count
@@ -117,24 +118,34 @@ def load_games(args) -> list['Game']:
 def update_players(all_games) -> None:
 #    RAWOut = open(1, 'w', encoding='utf8', closefd=False)
     players = dict()
-    json_p_file = "players.json"
+    json_p_file = "players.json.gz"
     if os.path.exists(json_p_file):
-        with open(json_p_file, 'r', encoding="utf-8") as f:
+        with gzip.open(json_p_file, 'rt', encoding="utf-8") as f:
             players = json.load(f)
     print(f"Players DB: {len(players)} entries")
     for game in all_games:
-        player_list = game.players
-        for player in player_list:
-            if player['player_id'] in players:
-                if (isinstance(players[player['player_id']], str)):
-                    if players[player['player_id']] != player['name']: 
-                        players[player['player_id']] = [ players[player['player_id']], player['name'] ]
-                else:
-                    if not player['name'] in players[player['player_id']]:
-                        players[player['player_id']].append(player['name'])
+        uuid = game.main_player.player_id + '-' + str(game.job_id)
+        if game.main_player.player_id in players:
+            playerdict = players[game.main_player.player_id]
+            if game.main_player.name in playerdict:
+                if not (uuid in playerdict[game.main_player.name]):
+                    playerdict[game.main_player.name].append(uuid)
             else:
-                players[player['player_id']] = player['name']
-    with open(json_p_file, 'w', encoding="utf-8") as f:
+                playerdict[game.main_player.name] = [ uuid ]
+        else:
+            players[game.main_player.player_id] = { game.main_player.name : [ uuid ] }
+        # Now the other players
+        for player in game.players:
+            if player.player_id in players:
+                playerdict = players[player.player_id]
+                if player.name in playerdict:
+                    if not (uuid in playerdict[player.name]):
+                        playerdict[player.name].append(uuid)
+                else:
+                    playerdict[player.name] = [ uuid ]
+            else:
+                players[player.player_id] = { player.name : [ uuid ] }   
+    with gzip.open(json_p_file, 'wt', compresslevel=9, encoding="utf-8") as f:
         json.dump(players, f)    
     print(f"Updated Players DB: {len(players)} entries")
 
