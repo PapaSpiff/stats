@@ -95,6 +95,10 @@ class Wave:
         'occurence': "occurences",
         'median'   : "median",
         'stddev'   : "std.dev",
+        'cleared'  : "Cleared games",
+        'avgwave'  : "Wave avg.",
+        'goldeggs' : "Golden eggs",
+        'powereggs': "Power eggs",
     }
     other_fr = {
         'title' : "Vagues",
@@ -107,7 +111,11 @@ class Wave:
         'min'      : "min",
         'occurence': "apparitions",
         'median'   : "médian",
-        'stddev'   : "éc.type"
+        'stddev'   : "éc.type",
+        'cleared'  : "Parties gagnées",
+        'avgwave'  : "Vagues (moy.)",
+        'goldeggs' : "Œufs dorés",
+        'powereggs': "Œufs de poisson",
     }
     other_ja = {
         'title' : "WAVE",
@@ -121,6 +129,10 @@ class Wave:
         'occurence': "出現数",
         'median'   : "中央",
         'stddev'   : "標準偏差",
+        'cleared'  : "クリア", #FIXME
+        'avgwave'  : "平均WAVE",
+        'goldeggs' : "金イクラ",
+        'powereggs': "イクラ",
     }
 
     def other_str(key: str, lang: str) -> str:

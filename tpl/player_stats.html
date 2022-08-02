@@ -15,21 +15,21 @@
         {%- set w1passed = w2passed + wavesnum[1] -%}
         {%- set w1failed = wavesnum[0]            -%}
         {%- set nbgames  = session.wavespassed|length -%}
-        <td class="left">Cleared Games</td>
+        <td class="left">{{ "cleared"|waveother(lang) }}</td>
         <td class="right" title='fail w3: {{ wavesnum[2] }} ({{ "%.2f%%"|format(100 * wavesnum[2] / nbgames) }}), fail w2: {{ wavesnum[1] }} ({{ "%.2f%%"|format(100 * wavesnum[1] / nbgames) }}), fail w1: {{ w1failed }} ({{ "%.2f%%"|format(100 * w1failed / nbgames) }})'>{{ wongames }} / {{ nbgames }} ({{ "%.2f%%"|format(100 * wongames / nbgames) }})</td>
       </tr>
       <tr>
-        <td class="left">Waves</td>
+        <td class="left">{{ "avgwave"|waveother(lang) }}</td>
         <td class="right" title='%: {{ "%.2f"|format(100 * session.wavespassed|sum / session.wavetotal) }}, {{ median }}: {{ "%.2f"|format(session.wavespassed|median) }}, {{ stddev }}: {{ "%.2f"|format(session.wavespassed|pstdev) }}'>{{ "%.2f"|format(session.wavespassed|mean) }}</td>
       </tr>
       <tr>
-        <td class="left">Golden eggs</td>
+        <td class="left">{{ "goldeggs"|waveother(lang) }}</td>
         <td class="right" title='{{ median }}: {{ "%.2f"|format(session.goldeneggs|median)}}, {{ stddev }}: {{ "%.2f"|format(session.goldeneggs|pstdev)}}'>{{ "%.2f"|format(session.goldeneggs|mean) }}
           (<span class="note" title="{{ vmin }}: {{ session.goldeneggs|min }}">{{ vmax }}: {{ session.goldeneggs|max }}</span>)
         </td>
       </tr>
       <tr>
-        <td class="left">Power eggs</td>
+        <td class="left">{{ "powereggs"|waveother(lang) }}</td>
         <td class="right" title='{{ median }}: {{ "%.2f"|format(session.powereggs|median)}}, {{ stddev }}: {{ "%.2f"|format(session.powereggs|pstdev)}}'>{{ "%.2f"|format(session.powereggs|mean) }}
           (<span class="note" title='{{ vmin }}: {{ session.powereggs|min }}'>{{ vmax }}: {{ session.powereggs|max }}</span>)
         </td>
