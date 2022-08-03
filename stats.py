@@ -197,7 +197,8 @@ if __name__ == "__main__":
         else:
             outfilepath = args.webroot + '/' + args.out
         with open(outfilepath, 'w', encoding="utf-8") as f:
-            f.write(html_player_rotation(all_games[0].main_player,all_games[0].rotation, session, rotonly, args.lang))
+            f.write(html_player_rotation(all_games[0].main_player,all_games[0].rotation, session, rotonly, args.lang))            
         session.print_stats(args.lang)
+        print(f"html version generated at {outfilepath}")
         update_players(all_games)
 
