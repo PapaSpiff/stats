@@ -39,6 +39,8 @@ if __name__ == "__main__":
                     print(f"Player ID: \"{p}\"", file=RAWOut)
                     for k in dict(sorted(ndict.items(), reverse=True, key=lambda item: item[1])):
                         print(f"         -> \"{k} ({ndict[k]})", file=RAWOut)
+            else:
+                print(f"Player name '{pid}' not found", file=RAWOut)
         else:
             # lookup by id (exact)
             if pid in players:
