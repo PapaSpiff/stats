@@ -29,6 +29,7 @@ if __name__ == "__main__":
                 for name in players[player]:
                     if pid in name:
                         res.append(player)
+                        break
             if len(res) > 0:
                for p in res:
                     playerdict = players[p]
