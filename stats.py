@@ -183,9 +183,17 @@ if __name__ == "__main__":
         player = all_games[0].main_player
         if args.webrotationmode:
             if rotonly:
-                outfilepath = args.webroot + "/player/" + player.player_id + "/rotation/" + rotation.rotation_id + "/" + args.out
+                outfilepath = args.webroot + "/player/" + player.player_id + "/schedule/" + rotation.rotation_id + "/" + args.out
+                if not os.path.isdir(args.webroot + "/player/" + player.player_id):
+                    os.mkdir(args.webroot + "/player/" + player.player_id)
+                if not os.path.isdir(args.webroot + "/player/" + player.player_id + "/schedule"):
+                    os.mkdir(args.webroot + "/player/" + player.player_id + "/schedule")
+                if not os.path.isdir(args.webroot + "/player/" + player.player_id + "/schedule/" + rotation.rotation_id):
+                    os.mkdir(args.webroot + "/player/" + player.player_id + "/schedule/" + rotation.rotation_id)
             else:
                 outfilepath = args.webroot + "/player/" + player.player_id + '/' + args.out
+                if not os.path.isdir(args.webroot + "/player/" + player.player_id):
+                    os.mkdir(args.webroot + "/player/" + player.player_id)
         else:
             outfilepath = args.webroot + '/' + args.out
         with open(outfilepath, 'w', encoding="utf-8") as f:
