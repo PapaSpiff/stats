@@ -1,6 +1,6 @@
 
 class Player:
-    player_id: int = 0
+    player_id: str = "(unknown)"
     name:str
     specie: str
     kind: str

@@ -165,6 +165,9 @@ if __name__ == "__main__":
     parser.add_argument('-exclude', nargs=1, type=str, help='excluded json number', default=[])
     parser.add_argument('-lang', type=str, help='lang', default="en")
     parser.add_argument('-out', type=str, help="output file", default="statistics.html")
+    parser.add_argument('-textout', type=bool, help='keep default test output', default=True)
+    parser.add_argument('-webroot', type=str, help="outbput base directory", default="./")
+    parser.add_argument('-webrotationmode', type=bool, help='use player/rotation model', default=False)
     parser.add_argument('numgames', metavar='N', type=str, nargs='*', help='json number')
     args = parser.parse_args()
 #   print(args)
@@ -176,7 +179,16 @@ if __name__ == "__main__":
         session = GameSession()
         session.get_stats(all_games)
         rotonly = args.rotation or not (args.all or args.single)
-        with open(args.out, 'w', encoding="utf-8") as f:
+        rotation = all_games[0].rotation
+        player = all_games[0].main_player
+        if args.webrotationmode:
+            if rotonly:
+                outfilepath = args.webroot + "/player/" + player.player_id + "/rotation/" + rotation.rotation_id + "/" + args.out
+            else:
+                outfilepath = args.webroot + "/player/" + player.player_id + '/' + args.out
+        else:
+            outfilepath = args.webroot + '/' + args.out
+        with open(outfilepath, 'w', encoding="utf-8") as f:
             f.write(html_player_rotation(all_games[0].main_player,all_games[0].rotation, session, rotonly, args.lang))
         session.print_stats(args.lang)
         update_players(all_games)
