@@ -33,7 +33,7 @@
     </div>
     <div class='weapons-list'>
       {%- for wkey, weapon in session.my_weapons|dictsort(true,'value',true)  %}
-      <div class='weapon-{{ weaponsizemax }}-{{ (loop.index, weaponsizemax)|min }}'><img class='special-img' src='{{wkey|weapontoimg}}' alt='{{wkey|weaponname(lang)}}'> <span class='weapon-name'>{{wkey|weaponname(lang)}}</span> : <span class='weapon-count' title='weapon occurence'>{{weapon}}</span> <span class='weapon-occurence-percent' title='percentage of all occurences'>({{"%5.2f%%"|format(100*weapon/(all_waves))}})</span></div>
+      <div class='weapon-{{ weaponsizemax }}-{{ (loop.index, weaponsizemax)|min }}'><img class='special-img' src='{{wkey|weapontoimg}}' width='28' height='28' alt='{{wkey|weaponname(lang)}}'> <span class='weapon-name'>{{wkey|weaponname(lang)}}</span> : <span class='weapon-count' title='weapon occurence'>{{weapon}}</span> <span class='weapon-occurence-percent' title='percentage of all occurences'>({{"%5.2f%%"|format(100*weapon/(all_waves))}})</span></div>
       {%- endfor                                                              %}
     </div>
   </div>

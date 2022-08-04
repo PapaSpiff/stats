@@ -3,6 +3,8 @@
 <meta charset='utf-8'>
 {%- if standalone -%}
 <base href='https://www.salmon-stats.ink/'>
+{%- else          -%}
+<meta name="viewport" content="width=device-width, initial-scale=1">
 {%- endif         -%}
 <title>{{ player.name|e }} - {{ rotation }}</title>
 <link rel='stylesheet' href='/style/sr.css'>

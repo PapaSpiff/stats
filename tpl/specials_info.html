@@ -21,7 +21,7 @@
     </div>
     <div class='specials-list'>
       {%- for spkey, special in session.my_specials|dictsort(true,'value',true)  %}
-      <div class='special-{{ specialsize }}-{{ loop.index }}'><img class='special-img' src='/images/special/{{spkey|specialtoimg}}' alt='{{spkey|specialname(lang)}}'> <span class='special-name'>{{spkey|specialname(lang)}}</span> : <span class='special-count' title='special occurence'>{{special}}</span> <span class='special-usage-percent' title='special usage'>({{"%5.2f%%"|format(100*session.us_specials[spkey]/(2*special))}})</span></div>
+      <div class='special-{{ specialsize }}-{{ loop.index }}'><img class='special-img' src='/images/special/{{spkey|specialtoimg}}' width='28' height='28' alt='{{spkey|specialname(lang)}}'> <span class='special-name'>{{spkey|specialname(lang)}}</span> : <span class='special-count' title='special occurence'>{{special}}</span> <span class='special-usage-percent' title='special usage'>({{"%5.2f%%"|format(100*session.us_specials[spkey]/(2*special))}})</span></div>
       {%- endfor %}
     </div>
   </div>
