@@ -104,6 +104,8 @@ class Wave:
         'raises'   : "Raises",
         'hazardlvl': "Danger level",
         'bosskills': "Boss kills",
+        'plkills'  : "player kills",
+        'teamkills': "team kills",
         'retrieval': "Retrieval rate",
         'geneggs'  : "Generated eggs",
     }
@@ -125,9 +127,11 @@ class Wave:
         'powereggs': "Œufs de poisson",
         'player'   : "Joueur",
         'deaths'   : "Morts",
-        'raises'   : "Secours",
+        'raises'   : "Secourus",
         'hazardlvl': "Niveau de danger",
         'bosskills': "Salmonoboss tués",
+        'plkills'  : "tués par le joueur",
+        'teamkills': "tués par l'équipe",
         'retrieval': "Taux de récupération",
         'geneggs'  : "Œufs générés",
     }
@@ -152,8 +156,10 @@ class Wave:
         'raises'   : "助けた数",
         'hazardlvl': "平均キケン度", #FIXME
         'bosskills': "平均Kill", #FIXME
+        'plkills'  : "player kills", #TODO
+        'teamkills': "team kills", #TODO
         'retrieval': "Retrieval rate", #TODO
-        'geneggs'  : "Generated eggs",
+        'geneggs'  : "Generated eggs", #TODO
     }
 
     def other_str(key: str, lang: str) -> str:

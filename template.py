@@ -47,7 +47,7 @@ def boss_name(key: str, lang: str="en") -> str:
     return SalmonBossList.get_boss_name(key, lang)
 
 
-def html_player_rotation(player: Player, rotation: Rotation, session: GameSession, rotonly: bool=True, lang: str="en") -> str:
+def html_player_rotation(player: Player, rotation: Rotation, session: GameSession, rotonly: bool=True, standalone: bool=False, lang: str="en") -> str:
     env = Environment(loader=FileSystemLoader("tpl/", encoding='utf-8'))
     env.filters["epochgmttime"] = epoch_to_gmt_str
     env.filters["weapontoimg"]  = weapon_key_to_img
@@ -70,4 +70,4 @@ def html_player_rotation(player: Player, rotation: Rotation, session: GameSessio
     return tpl.render(player=player, rotation=rotation, session=session, 
                     specialtitle=Special.title_str(lang), weapontitle=Weapon.title_str(lang),
                     waves=Wave(), bosslist=SalmonBossList(),
-                    lang=lang)
+                    standalone=standalone, lang=lang)

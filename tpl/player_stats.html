@@ -72,9 +72,9 @@
       {%-     set other_boss_kill = session.boss_tkill[bkey]|sum -%}
       {%-     if boss_app > 0                                    -%}
       <tr class="bosskill">
-        <td class="left" title='{{ occurence }}: {{ boss_app}} ({{ "%.2f"|format(boss_app / nb_games) }}/game), {{ stddev }}: {{ "%.2f"|format(session.boss_list[bkey]|pstdev) }}'>{{ bkey|bossname(lang) }}</td>
-        <td class="right" title='{{ occurence }}: {{ boss_kill }} ({{ "%.2f"|format(boss_kill / nb_games) }}/game), {{ stddev }}: {{ "%.2f"|format(session.boss_kill[bkey]|pstdev) }}'>{{ "%.2f%%"|format(100 * boss_kill / boss_app) }}
-          <span class="team-boss-kills" title='team kills: {{ (boss_kill + other_boss_kill) }}'>({{ "%.2f%%"|format(100 * (boss_kill + other_boss_kill) / boss_app) }})</span>
+        <td class="left" title='{{ "occurence"|waveother(lang) }}: {{ boss_app}} ({{ "%.2f"|format(boss_app / nb_games) }}/game), {{ stddev }}: {{ "%.2f"|format(session.boss_list[bkey]|pstdev) }}'>{{ bkey|bossname(lang) }}</td>
+        <td class="right" title='{{ "plkills"|waveother(lang) }}: {{ boss_kill }} ({{ "%.2f"|format(boss_kill / nb_games) }}/game), {{ stddev }}: {{ "%.2f"|format(session.boss_kill[bkey]|pstdev) }}'>{{ "%.2f%%"|format(100 * boss_kill / boss_app) }}
+          <span class="team-boss-kills" title="{{ 'teamkills'|waveother(lang) }}: {{ (boss_kill + other_boss_kill) }}">({{ "%.2f%%"|format(100 * (boss_kill + other_boss_kill) / boss_app) }})</span>
         </td>
       </tr>
       {%- endif                                                  -%}

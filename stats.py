@@ -166,7 +166,7 @@ if __name__ == "__main__":
     parser.add_argument('-lang', type=str, help='lang', default="en")
     parser.add_argument('-out', type=str, help="output file", default="statistics.html")
     parser.add_argument('-textout', action=argparse.BooleanOptionalAction, help='keep default test output', default=True)
-    parser.add_argument('-webroot', type=str, help="outbput base directory", default="./")
+    parser.add_argument('-webroot', type=str, help="outbput base directory", default=".")
     parser.add_argument('-webrotationmode', action=argparse.BooleanOptionalAction, help='use player/rotation model', default=False)
     parser.add_argument('numgames', metavar='N', type=str, nargs='*', help='json number')
     args = parser.parse_args()
@@ -197,7 +197,7 @@ if __name__ == "__main__":
         else:
             outfilepath = args.webroot + '/' + args.out
         with open(outfilepath, 'w', encoding="utf-8") as f:
-            f.write(html_player_rotation(all_games[0].main_player,all_games[0].rotation, session, rotonly, args.lang))            
+            f.write(html_player_rotation(all_games[0].main_player,all_games[0].rotation, session, rotonly, not args.webrotationmode, args.lang))
         session.print_stats(args.lang)
         print(f"html version generated at {outfilepath}")
         update_players(all_games)
