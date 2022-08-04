@@ -100,6 +100,12 @@ class Wave:
         'goldeggs' : "Golden eggs",
         'powereggs': "Power eggs",
         'player'   : "Player",
+        'deaths'   : "Deaths",
+        'raises'   : "Raises",
+        'hazardlvl': "Danger level",
+        'bosskills': "Boss kills",
+        'retrieval': "Retrieval rate",
+        'geneggs'  : "Generated eggs",
     }
     other_fr = {
         'title' : "Vagues",
@@ -118,6 +124,12 @@ class Wave:
         'goldeggs' : "Œufs dorés",
         'powereggs': "Œufs de poisson",
         'player'   : "Joueur",
+        'deaths'   : "Morts",
+        'raises'   : "Secours",
+        'hazardlvl': "Niveau de danger",
+        'bosskills': "Salmonoboss tués",
+        'retrieval': "Taux de récupération",
+        'geneggs'  : "Œufs générés",
     }
     other_ja = {
         'title' : "WAVE",
@@ -136,6 +148,12 @@ class Wave:
         'goldeggs' : "金イクラ",
         'powereggs': "イクラ",
         'player'   : "プレーヤー",
+        'deaths'   : "やられた数",
+        'raises'   : "助けた数",
+        'hazardlvl': "平均キケン度", #FIXME
+        'bosskills': "平均Kill", #FIXME
+        'retrieval': "Retrieval rate", #TODO
+        'geneggs'  : "Generated eggs",
     }
 
     def other_str(key: str, lang: str) -> str:

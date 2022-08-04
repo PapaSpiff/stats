@@ -14,10 +14,10 @@
         {%- set w1passed = w2passed + wavesnum[1] -%}
         {%- set w1failed = wavesnum[0]            -%}
         {%- set nbgames  = session.wavespassed|length -%}
-        <tr>
-          <td class="left">{{ "player"|waveother(lang) }}</td>
-          <td class="right">{{ player.name|e }}</td>
-        </tr>
+      <tr>
+        <td class="left">{{ "player"|waveother(lang) }}</td>
+        <td class="right">{{ player.name|e }}</td>
+      </tr>
       <tr>
         <td class="left">{{ "cleared"|waveother(lang) }}</td>
         <td class="right" title='fail w3: {{ wavesnum[2] }} ({{ "%.2f%%"|format(100 * wavesnum[2] / nbgames) }}), fail w2: {{ wavesnum[1] }} ({{ "%.2f%%"|format(100 * wavesnum[1] / nbgames) }}), fail w1: {{ w1failed }} ({{ "%.2f%%"|format(100 * w1failed / nbgames) }})'>{{ wongames }} / {{ nbgames }} ({{ "%.2f%%"|format(100 * wongames / nbgames) }})</td>
@@ -40,29 +40,29 @@
       </tr>
 
       <tr>
-        <td class="left">Boss kills</td>
+        <td class="left">{{ "bosskills"|waveother(lang) }}</td>
         <td class="right" title='{{ median }}: {{ "%.2f%%"|format(100*(session.pctkills|median))}}, {{ stddev }}: {{ "%.2f%%"|format(100*(session.pctkills|pstdev))}}'>{{ "%.2f%%"|format(100*(session.pctkills|mean)) }}
           (<span class="note" title='{{ median }}: {{ "%.2f"|format(session.kills|median)}}, {{ stddev }}: {{ "%.2f"|format(session.kills|pstdev)}}'>{{ "%.2f"|format(session.kills|mean) }})</span> 
         </td>
       </tr>
       <tr>
-        <td class="left">Deaths</td>
+        <td class="left">{{ "deaths"|waveother(lang) }}</td>
         <td class="right" title='total: {{ session.deaths|sum }}, {{ median }}: {{ "%.2f"|format(session.deaths|median)}}, {{ stddev }}: {{ "%.2f"|format(session.deaths|pstdev)}}'>{{ "%.2f"|format(session.deaths|mean) }}</td>
       </tr>
       <tr>
-        <td class="left">Raises</td>
+        <td class="left">{{ "raises"|waveother(lang) }}</td>
         <td class="right" title='total: {{ session.raises|sum }}, {{ median }}: {{ "%.2f"|format(session.raises|median)}}, {{ stddev }}: {{ "%.2f"|format(session.raises|pstdev)}}'>{{ "%.2f"|format(session.raises|mean) }}</td>
       </tr>
       <tr>
-        <td class="left">Danger Level</td>
+        <td class="left">{{ "hazardlvl"|waveother(lang) }}</td>
         <td class="right" title='{{ median }}: {{ "%.2f%%"|format(session.dangerrate|median)}}, {{ stddev }}: {{ "%.2f%%"|format(session.dangerrate|pstdev)}}'>{{ "%.2f%%"|format(session.dangerrate|mean) }}</td>
       </tr>
       <tr>
-        <td class="left">Retrieval Rate</td>
+        <td class="left">{{ "retrieval"|waveother(lang) }}</td>
         <td class="right" title='{{ vmax }}: {{ "%.2f%%"|format(100*session.retr_rate|max)}}, {{ median }}: {{ "%.2f%%"|format(100*session.retr_rate|median)}}, {{ stddev }}: {{ "%.2f%%"|format(100*session.retr_rate|pstdev)}}'>{{ "%.2f%%"|format(100*session.retr_rate|mean) }}</td>
       </tr>
       <tr>
-        <td class="left">Generated Eggs</td>
+        <td class="left">{{ "geneggs"|waveother(lang) }}</td>
         <td class="right" title='{{ vmax }}: {{ session.goldengen|max }}, {{ median }}: {{ "%.2f"|format(session.goldengen|median)}}, {{ stddev }}: {{ "%.2f"|format(session.goldengen|pstdev)}}'>{{ "%.2f"|format(session.goldengen|mean) }}</td>
       </tr>
       {%-     set nb_games = session.scores|length               -%}
