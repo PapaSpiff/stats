@@ -158,8 +158,8 @@ class Wave:
         'bosskills': "平均Kill", #FIXME
         'plkills'  : "player kills", #TODO
         'teamkills': "team kills", #TODO
-        'retrieval': "Retrieval rate", #TODO
-        'geneggs'  : "Generated eggs", #TODO
+        'retrieval': "回収率", #FIXME
+        'geneggs'  : "金イクラ出現数", #FIXME
     }
 
     def other_str(key: str, lang: str) -> str:
