@@ -8,13 +8,17 @@
     {%- set vmin      = "min"|waveother(lang)           -%}
     {%- set vmax      = "max"|waveother(lang)           -%}
     <tbody>
-      <tr>
         {%- set wavesnum = session.wavespassed|countitem -%}
         {%- set wongames = wavesnum[3] -%}
         {%- set w2passed = wongames + wavesnum[2] -%}
         {%- set w1passed = w2passed + wavesnum[1] -%}
         {%- set w1failed = wavesnum[0]            -%}
         {%- set nbgames  = session.wavespassed|length -%}
+        <tr>
+          <td class="left">{{ "player"|waveother(lang) }}</td>
+          <td class="right">{{ player.name|e }}</td>
+        </tr>
+      <tr>
         <td class="left">{{ "cleared"|waveother(lang) }}</td>
         <td class="right" title='fail w3: {{ wavesnum[2] }} ({{ "%.2f%%"|format(100 * wavesnum[2] / nbgames) }}), fail w2: {{ wavesnum[1] }} ({{ "%.2f%%"|format(100 * wavesnum[1] / nbgames) }}), fail w1: {{ w1failed }} ({{ "%.2f%%"|format(100 * w1failed / nbgames) }})'>{{ wongames }} / {{ nbgames }} ({{ "%.2f%%"|format(100 * wongames / nbgames) }})</td>
       </tr>

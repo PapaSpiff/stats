@@ -99,6 +99,7 @@ class Wave:
         'avgwave'  : "Wave avg.",
         'goldeggs' : "Golden eggs",
         'powereggs': "Power eggs",
+        'player'   : "Player",
     }
     other_fr = {
         'title' : "Vagues",
@@ -116,6 +117,7 @@ class Wave:
         'avgwave'  : "Vagues (moy.)",
         'goldeggs' : "Œufs dorés",
         'powereggs': "Œufs de poisson",
+        'player'   : "Joueur",
     }
     other_ja = {
         'title' : "WAVE",
@@ -133,6 +135,7 @@ class Wave:
         'avgwave'  : "平均WAVE",
         'goldeggs' : "金イクラ",
         'powereggs': "イクラ",
+        'player'   : "プレーヤー",
     }
 
     def other_str(key: str, lang: str) -> str:
