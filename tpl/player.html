@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang='en'>
 <meta charset='utf-8'>
-<base href='https://www.salmon-stats.ink/'><title>test</title>
-<link rel='stylesheet' href='style/sr.css'>
+{%- if standalone -%}
+<base href='https://www.salmon-stats.ink/'>
+{%- endif         -%}
+<title>{{ player.name|e }}</title>
+<link rel='stylesheet' href='/style/sr.css'>
 </head><body>
 {% include "player_stats.html" %}
 {% include "specials_info.html"  %}
