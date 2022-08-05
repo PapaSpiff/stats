@@ -156,8 +156,8 @@ class Wave:
         'raises'   : "助けた数",
         'hazardlvl': "平均キケン度", #FIXME
         'bosskills': "平均Kill", #FIXME
-        'plkills'  : "player kills", #TODO
-        'teamkills': "team kills", #TODO
+        'plkills'  : "オオモノシャケを倒した回数 (個人)", #FIXME
+        'teamkills': "オオモノシャケを倒した回数 (合計)", #FIXME
         'retrieval': "回収率", #FIXME
         'geneggs'  : "金イクラ出現数", #FIXME
     }
