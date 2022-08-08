@@ -2,6 +2,7 @@ import json
 import os
 import argparse
 import gzip
+from time import strftime, gmtime
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -34,23 +35,31 @@ if __name__ == "__main__":
                for p in res:
                     playerdict = players[p]
                     ndict = dict()
+                    ldict = dict()
+                    fdict = dict()
                     for entry in playerdict:
                         ndict[entry] = len(playerdict[entry])
+                        ldict[entry] = max(playerdict[entry])
+                        fdict[entry] = min(playerdict[entry])
                     print(f"Player ID: \"{p}\"", file=RAWOut)
                     for k in dict(sorted(ndict.items(), reverse=True, key=lambda item: item[1])):
-                        print(f"         -> \"{k}\" ({ndict[k]})", file=RAWOut)
+                        print(f"         -> \"{k:>10}\" ({ndict[k]:5d}), last: {strftime('%Y-%m-%d %H:%M:%S %Z', gmtime(ldict[k]))}, first: {strftime('%Y-%m-%d %H:%M:%S %Z', gmtime(fdict[k]))}", file=RAWOut)
             else:
                 print(f"Player name '{pid}' not found", file=RAWOut)
         else:
             # lookup by id (exact)
             if pid in players:
                 ndict = dict()
+                ldict = dict()
+                fdict = dict()
                 playerdict = players[pid]
                 for entry in playerdict:
                     ndict[entry] = len(playerdict[entry])
+                    ldict[entry] = max(playerdict[entry])
+                    fdict[entry] = min(playerdict[entry])
                 print(f"Player ID: \"{pid}\"", file=RAWOut)
                 for k in dict(sorted(ndict.items(), reverse=True, key=lambda item: item[1])):
-                    print(f"         -> \"{k}\" ({ndict[k]})", file=RAWOut)
+                    print(f"         -> \"{k:>10}\" ({ndict[k]:5d}), last: {strftime('%Y-%m-%d %H:%M:%S %Z', gmtime(ldict[k]))}, first: {strftime('%Y-%m-%d %H:%M:%S %Z', gmtime(fdict[k]))}", file=RAWOut)
             else:
                 print(f"Player ID '{pid}' not found", file=RAWOut)
         

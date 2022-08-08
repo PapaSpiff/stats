@@ -124,27 +124,26 @@ def update_players(all_games) -> None:
             players = json.load(f)
     print(f"Players DB: {len(players)} entries")
     for game in all_games:
-        uuid = game.main_player.player_id + '-' + str(game.job_id)
         if game.main_player.player_id in players:
             playerdict = players[game.main_player.player_id]
             if game.main_player.name in playerdict:
-                if not (uuid in playerdict[game.main_player.name]):
-                    playerdict[game.main_player.name].append(uuid)
+                if not (game.play_time in playerdict[game.main_player.name]):
+                    playerdict[game.main_player.name].append(game.play_time)
             else:
-                playerdict[game.main_player.name] = [ uuid ]
+                playerdict[game.main_player.name] = [ game.play_time ]
         else:
-            players[game.main_player.player_id] = { game.main_player.name : [ uuid ] }
+            players[game.main_player.player_id] = { game.main_player.name : [ game.play_time ] }
         # Now the other players
         for player in game.players:
             if player.player_id in players:
                 playerdict = players[player.player_id]
                 if player.name in playerdict:
-                    if not (uuid in playerdict[player.name]):
-                        playerdict[player.name].append(uuid)
+                    if not (game.play_time in playerdict[player.name]):
+                        playerdict[player.name].append(game.play_time)
                 else:
-                    playerdict[player.name] = [ uuid ]
+                    playerdict[player.name] = [ game.play_time ]
             else:
-                players[player.player_id] = { player.name : [ uuid ] }   
+                players[player.player_id] = { player.name : [ game.play_time ] }
     with gzip.open(json_p_file, 'wt', compresslevel=9, encoding="utf-8") as f:
         json.dump(players, f)    
     print(f"Updated Players DB: {len(players)} entries")
