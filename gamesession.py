@@ -10,6 +10,7 @@ from statistics import quantiles as quantiles
 
 class GameSession:
     def get_stats(self: 'GameSession', game_list: list[Game]) -> None:
+        self.job_ids     = []
         self.scores      = []
         self.kills       = []
         self.tkills      = []
@@ -108,6 +109,7 @@ class GameSession:
                              "sakelien-golden" : [] }
         for g in game_list:
             self.wavetotal += g.wavesplayed
+            self.job_ids.append(g.job_id)
             self.scores.append(g.score)
             self.boss_tot.append(g.boss_tot_num)
             self.kills.append(g.boss_kill_num)
