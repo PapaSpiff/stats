@@ -82,7 +82,7 @@ def load_games(args) -> list['Game']:
 
     is_gamelist = len(args.numgames) > 1
     has_exclude = len(args.exclude) > 0
-    rotonly = args.rotation or not (args.all or args.single or args.rotation or is_gamelist)
+    rotonly = args.rotation or args.fl10 or not (args.all or args.single or args.rotation or is_gamelist)
     for jsonfile in sorted([i.split('/')[1] for i in glob.glob(dirname+"/*.json")]):
 #        print(f'Working on {jsonfile}')
         ng = Game(jsonfile, dirname)
@@ -94,6 +94,9 @@ def load_games(args) -> list['Game']:
         # rotation? check time boundaries
         if rotonly and ((ng.play_time < mintime) or (ng.play_time > maxtime)):
             continue
+        if args.fl10:
+            if len(all_games) == 10:
+                break
         # list of games? check non-existence]
         if is_gamelist and jsonfile.split('.')[0] not in args.numgames:
             continue 
@@ -159,6 +162,7 @@ if __name__ == "__main__":
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-rotation', action=argparse.BooleanOptionalAction, default=False)
     group.add_argument('-single', action=argparse.BooleanOptionalAction, default=False)
+    group.add_argument('-fl10', action=argparse.BooleanOptionalAction, default=False)
     group.add_argument('-all', action=argparse.BooleanOptionalAction, default=False)
     parser.add_argument('-alldays', action=argparse.BooleanOptionalAction, help="implies -winonly", default=False)
     parser.add_argument('-exclude', nargs=1, type=str, help='excluded json number', default=[])
