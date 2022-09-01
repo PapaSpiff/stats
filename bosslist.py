@@ -24,6 +24,26 @@ class SalmonBossList:
                 "sakediver"          : "モグラ",    "sakedozer"       : "グリル",
                 "sakerocket"         : "コウモリ" }
     
+    # サーモンラン NEXT WAVE / Salmon Run Next Wave
+    # ダイバー / Flipper-Flopper
+    # ハシラ / Fish Stick
+    # ナベブタ / Slammin' Lid
+    # テッキュウ / Big Shot
+    # オカシラシャケ / King Salmonid
+    # ヨコヅナ / Cohozuna
+    # バンカラ地方 / Splatlands
+    # バンカラ街 / Splatsville
+    # アラマキ砦 / Sockeye Station
+    # 控室 / waiting room
+    # イクラ投げ / Egg Throw
+    # イクラキャノン / Egg Cannon
+    # たつじん / Profreshional
+    # でんせつ / Eggsecutive VP
+    # EXTRA WAVE / Xtrawave
+    # ビッグラン / Big Run
+    # オカシラゲージ / ?
+    # プライベートバイト / ?
+
     boss_str = boss_en
 
     def get_boss_key(idx: int) -> str:
