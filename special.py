@@ -4,25 +4,54 @@ class Special:
         2: 'pitcher',
         7: 'presser',
         8: 'jetpack', 
-        9: 'chakuchi'
+        9: 'chakuchi',
+        # NW
+        20014: 'tripleinkstrike',
+        20013: 'reefslider',
+        20012: 'crabtank',
+        20009: 'killerwail51',
+        20007: 'wavebreaker',
+        20006: 'booyahbomb',
+        20010: 'jetpack', #same as SP2 '8'
     }
     special_en = {
         'presser' : "Sting Ray",
         'jetpack' : "Inkjet",
         'chakuchi': "Splashdown",
-        'pitcher' : "Bomb Launcher"
+        'pitcher' : "Bomb Launcher",
+        # NW
+        'tripleinkstrike' : "Triple Inkstrike",
+        'reefslider' : "Reefslider",
+        'crabtank'   : "Crab Tank",
+        'killerwail51' : "Killer Wail 5.1",
+        'wavebreaker' : "Wave Breaker",
+        'booyahbomb' : "Booyah Bomb",
     }
     special_fr = {
         'presser' : "Pigmalance",
         'jetpack' : "Chromo-jet",
         'chakuchi': "Choc chromatique",
-        'pitcher' : "Lance-bombes splash"
+        'pitcher' : "Lance-bombes splash",
+        #NW
+        'tripleinkstrike' : "Trimissile tornade",
+        'reefslider' : "Cavalsquale",
+        'crabtank' : "Crabe d'assaut",
+        'killerwail51': "Haut-perceur 5.1",
+        'wavebreaker' : "Sonar paf",
+        'booyahbomb' : "Jolizator",
     }
     special_ja = {
         'presser' : "ハイパープレッサー",
         'jetpack' : "ジェットパック",
         'chakuchi': "スーパーチャクチ",
-        'pitcher' : "ボムピッチャ"
+        'pitcher' : "ボムピッチャ",
+        #NW
+        'tripleinkstrike' : "トリプルトルネード",
+        'reefslider' : "サメライド",
+        'crabtank' : "カニタンク",
+        'killerwail51' : "メガホンレーザー5.1ch",
+        'wavebreaker' : "ホップソナー",
+        'booyahbomb' : "ナイスダマ",
     }
     special_str = special_en
 
